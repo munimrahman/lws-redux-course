@@ -1,8 +1,7 @@
 const allMatchesContainer = document.getElementById("all-matches");
 const addMatchButton = document.getElementById("add-match");
 const resetButton = document.getElementById("reset");
-//match id
-let matchId = 2;
+
 // match div
 const getMatchDiv = (id, matchNo) => {
   return `<div id="match-${id}" class="match">
@@ -174,10 +173,8 @@ const render = () => {
             .getState()
             .matches.find((match) => match.id === match.id).score;
 
-          if (score < 0 || score > currentScore) {
-            alert(
-              `Invalid value entered. Please enter a value between 0 and ${currentScore}`
-            );
+          if (score > currentScore) {
+            store.dispatch(decrement(currentScore, match.id));
             decrementInput.value = "";
           } else {
             store.dispatch(decrement(score, match.id));
