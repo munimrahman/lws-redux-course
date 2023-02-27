@@ -1,7 +1,12 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import logo from "../assets/images/logo.png";
 
 const Navbar = ({ handleNavigation }) => {
+  const cart = useSelector((state) => state.products.cart);
+
+  const totalCartItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+
   return (
     <nav className="bg-[#171C2A] py-4">
       <div className="navBar">
@@ -23,7 +28,7 @@ const Navbar = ({ handleNavigation }) => {
             id="lws-cart"
           >
             <i className="text-xl fa-sharp fa-solid fa-bag-shopping"></i>
-            <span id="lws-totalCart">0</span>
+            <span id="lws-totalCart">{totalCartItems}</span>
           </span>
         </div>
       </div>

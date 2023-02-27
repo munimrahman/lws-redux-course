@@ -6,7 +6,7 @@ const initialState = {
       category: "Mens Shoes",
       price: 400,
       img: "https://i.dummyjson.com/data/products/59/thumbnail.jpg",
-      quantity: 10,
+      quantity: 5,
     },
     {
       id: 2,
@@ -14,7 +14,7 @@ const initialState = {
       category: "Tops",
       price: 100,
       img: "https://i.dummyjson.com/data/products/40/thumbnail.jpg",
-      quantity: 5,
+      quantity: 3,
     },
   ],
   cart: [
@@ -24,7 +24,7 @@ const initialState = {
       category: "Mens Shoes",
       price: 400,
       img: "https://i.dummyjson.com/data/products/59/thumbnail.jpg",
-      quantity: 10,
+      quantity: 0,
     },
     {
       id: 2,
@@ -32,7 +32,7 @@ const initialState = {
       category: "Tops",
       price: 100,
       img: "https://i.dummyjson.com/data/products/40/thumbnail.jpg",
-      quantity: 5,
+      quantity: 0,
     },
   ],
 };

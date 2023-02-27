@@ -1,10 +1,28 @@
-import React from "react";
+import { useDispatch } from "react-redux";
+import { addProduct } from "../redux/product/actions";
 
 const AddProduct = () => {
+  const dispatch = useDispatch();
+
+  const handleOnSubmit = (e) => {
+    e.preventDefault();
+    const product = {};
+    product["id"] = Date.now();
+    product["name"] = e.target.name.value;
+    product["category"] = e.target.category.value;
+    product["image"] = e.target.image.value;
+    product["price"] = e.target.price.value;
+    product["quantity"] = e.target.quantity.value;
+    dispatch(addProduct(product));
+  };
   return (
     <div className="formContainer">
       <h4 className="formTitle">Add New Product</h4>
-      <form className="space-y-4 text-[#534F4F]" id="lws-addProductForm">
+      <form
+        onSubmit={handleOnSubmit}
+        className="space-y-4 text-[#534F4F]"
+        id="lws-addProductForm"
+      >
         {/* <!-- product name --> */}
         <div className="space-y-2">
           <label htmlFor="name">Product Name</label>
@@ -12,7 +30,7 @@ const AddProduct = () => {
             className="addProductInput"
             id="lws-inputName"
             type="text"
-            // id="name"
+            name="name"
             required
           />
         </div>
@@ -23,7 +41,7 @@ const AddProduct = () => {
             className="addProductInput"
             id="lws-inputCategory"
             type="text"
-            // id="category"
+            name="category"
             required
           />
         </div>
@@ -34,7 +52,7 @@ const AddProduct = () => {
             className="addProductInput"
             id="lws-inputImage"
             type="text"
-            // id="image"
+            name="image"
             required
           />
         </div>
@@ -47,6 +65,7 @@ const AddProduct = () => {
               className="addProductInput"
               type="number"
               id="lws-inputPrice"
+              name="price"
               required
             />
           </div>
@@ -57,6 +76,7 @@ const AddProduct = () => {
               className="addProductInput"
               type="number"
               id="lws-inputQuantity"
+              name="quantity"
               required
             />
           </div>

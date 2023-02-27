@@ -1,7 +1,22 @@
 import React from "react";
+import { useDispatch } from "react-redux";
+import { increase, decrease, deleteFromCart } from "../redux/product/actions";
 
 const CartItemCard = ({ item }) => {
-  const { name, category, price, quantity, img } = item;
+  const dispatch = useDispatch();
+  const { id, name, category, price, quantity, img } = item;
+
+  const handleIncrease = (id) => {
+    dispatch(increase(id));
+  };
+
+  const handleDecrease = (id) => {
+    dispatch(decrease(id));
+  };
+  const handleRemove = (id) => {
+    console.log(id);
+    dispatch(deleteFromCart(id));
+  };
   return (
     <div className="cartCard">
       <div className="flex items-center col-span-6 space-x-6">
@@ -19,11 +34,17 @@ const CartItemCard = ({ item }) => {
       <div className="flex items-center justify-center col-span-4 mt-4 space-x-8 md:mt-0">
         {/* <!-- amount buttons --> */}
         <div className="flex items-center space-x-4">
-          <button className="lws-incrementQuantity">
+          <button
+            onClick={() => handleIncrease(id)}
+            className="lws-incrementQuantity"
+          >
             <i className="text-lg fa-solid fa-plus"></i>
           </button>
           <span className="lws-cartQuantity">{quantity}</span>
-          <button className="lws-decrementQuantity">
+          <button
+            onClick={() => handleDecrease(id)}
+            className="lws-decrementQuantity"
+          >
             <i className="text-lg fa-solid fa-minus"></i>
           </button>
         </div>
@@ -34,7 +55,7 @@ const CartItemCard = ({ item }) => {
       </div>
       {/* <!-- delete button --> */}
       <div className="flex items-center justify-center col-span-2 mt-4 md:justify-end md:mt-0">
-        <button className="lws-removeFromCart">
+        <button onClick={() => handleRemove(id)} className="lws-removeFromCart">
           <i className="text-lg text-red-400 fa-solid fa-trash"></i>
         </button>
       </div>
