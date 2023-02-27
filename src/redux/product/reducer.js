@@ -19,6 +19,7 @@ const reducer = (state = initialState, action) => {
       const product = state.products.find(
         (item) => item.id === action.payload.id
       );
+      const inCart = state.cart.find((c) => c.id === product.id) ? true : false;
 
       if (product.quantity === 0) {
         alert("Sold Out");
@@ -33,16 +34,13 @@ const reducer = (state = initialState, action) => {
               return product;
             }
           }),
-          cart: state.cart.map((item) => {
-            if (action.payload.id === item.id) {
-              return {
-                ...item,
-                quantity: item.quantity + 1,
-              };
-            } else {
-              return item;
-            }
-          }),
+          cart: inCart
+            ? state.cart.map((item) =>
+                item.id === product.id
+                  ? { ...item, quantity: item.quantity + 1 }
+                  : item
+              )
+            : [...state.cart, { ...product, quantity: 1 }],
         };
       }
 

@@ -10,7 +10,7 @@ const Navbar = ({ handleNavigation }) => {
   return (
     <nav className="bg-[#171C2A] py-4">
       <div className="navBar">
-        <a href="index.html">
+        <a href="/">
           <img src={logo} alt="LWS" className="max-w-[140px]" />
         </a>
         <div className="flex gap-4">

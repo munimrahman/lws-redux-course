@@ -4,15 +4,14 @@ import { addToCart } from "../redux/product/actions";
 
 const ProductCard = ({ product }) => {
   const dispatch = useDispatch();
-  const { name, category, price, quantity, img } = product;
-
+  const { name, category, price, quantity, image } = product;
   const addCart = (product) => {
     dispatch(addToCart(product));
   };
 
   return (
     <div className="lws-productCard">
-      <img className="lws-productImage" src={img} alt="product" />
+      <img className="lws-productImage" src={image} alt="product" />
       <div className="p-4 space-y-2">
         <h4 className="lws-productName">{name}</h4>
         <p className="lws-productCategory">{category}</p>
@@ -24,7 +23,11 @@ const ProductCard = ({ product }) => {
             QTY <span className="lws-quantity">{quantity}</span>
           </p>
         </div>
-        <button onClick={() => addCart(product)} className="lws-btnAddToCart">
+        <button
+          onClick={() => addCart(product)}
+          className="lws-btnAddToCart"
+          disabled={quantity === 0}
+        >
           Add To Cart
         </button>
       </div>

@@ -50,7 +50,7 @@ const CartItemCard = ({ item }) => {
         </div>
         {/* <!-- price --> */}
         <p className="text-lg font-bold">
-          BDT <span className="lws-calculatedPrice">2200</span>
+          BDT <span className="lws-calculatedPrice">{quantity * price}</span>
         </p>
       </div>
       {/* <!-- delete button --> */}

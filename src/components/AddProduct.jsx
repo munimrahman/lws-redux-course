@@ -14,7 +14,13 @@ const AddProduct = () => {
     product["price"] = e.target.price.value;
     product["quantity"] = e.target.quantity.value;
     dispatch(addProduct(product));
+    e.target.category.value = "";
+    e.target.image.value = "";
+    e.target.price.value = "";
+    e.target.name.value = "";
+    e.target.quantity.value = "";
   };
+
   return (
     <div className="formContainer">
       <h4 className="formTitle">Add New Product</h4>

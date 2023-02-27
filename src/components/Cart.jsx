@@ -6,6 +6,9 @@ import CartItemCard from "./CartItemCard";
 const Cart = () => {
   const cartItems = useSelector((state) => state.products.cart);
   const items = cartItems.filter((item) => item.quantity > 0);
+  const totalPrice = items
+    .map((item) => item.quantity * item.price)
+    .reduce((p, c) => p + c, 0);
   return (
     <>
       {items.length === 0 ? (
@@ -37,7 +40,7 @@ const Cart = () => {
             </div>
 
             {/* <!-- Bill Details --> */}
-            <BillDetails />
+            <BillDetails price={totalPrice} />
           </div>
         </div>
       )}
