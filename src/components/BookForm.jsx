@@ -1,9 +1,12 @@
-import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import addBook from "../redux/books/thunk/addBook";
+import updateBookThunk from "../redux/books/thunk/updateBook";
 
 const BookForm = () => {
   const dispatch = useDispatch();
+  const state = useSelector((state) => state.books);
+  const { toggleForm, updateBook } = state;
 
   const initialBookInfo = {
     name: "",
@@ -14,10 +17,14 @@ const BookForm = () => {
     featured: "",
   };
 
-  const [bookInfo, setBookInfo] = useState(initialBookInfo);
+  const [bookInfo, setBookInfo] = useState(initialBookInfo) || {};
 
-  const formTitle = true ? "Add New Book" : "Update Book";
-  const buttonText = true ? "Add Book" : "Update Book";
+  const formTitle = toggleForm ? "Update Book" : "Add New Book";
+  const buttonText = toggleForm ? "Update Book" : "Add Book";
+
+  useEffect(() => {
+    setBookInfo(updateBook?.updatedBook);
+  }, [setBookInfo, updateBook]);
 
   const handleChange = (e) => {
     let book = {};
@@ -32,9 +39,13 @@ const BookForm = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // console.log(bookInfo);
-    dispatch(addBook(bookInfo));
-    setBookInfo(initialBookInfo);
+    if (toggleForm) {
+      dispatch(updateBookThunk(bookInfo));
+      setBookInfo(initialBookInfo);
+    } else {
+      dispatch(addBook(bookInfo));
+      setBookInfo(initialBookInfo);
+    }
   };
 
   return (
@@ -51,7 +62,7 @@ const BookForm = () => {
             name="name"
             // onChange={handleName}
             onChange={handleChange}
-            value={bookInfo.name}
+            value={bookInfo?.name}
           />
         </div>
 
@@ -65,7 +76,7 @@ const BookForm = () => {
             name="author"
             // onChange={handleAuthor}
             onChange={handleChange}
-            value={bookInfo.author}
+            value={bookInfo?.author}
           />
         </div>
 
@@ -78,7 +89,7 @@ const BookForm = () => {
             id="input-Bookthumbnail"
             name="thumbnail"
             onChange={handleChange}
-            value={bookInfo.thumbnail}
+            value={bookInfo?.thumbnail}
           />
         </div>
 
@@ -92,7 +103,7 @@ const BookForm = () => {
               id="input-Bookprice"
               name="price"
               onChange={handleChange}
-              value={bookInfo.price}
+              value={bookInfo?.price}
             />
           </div>
 
@@ -107,7 +118,7 @@ const BookForm = () => {
               min="1"
               max="5"
               onChange={handleChange}
-              value={bookInfo.rating}
+              value={bookInfo?.rating}
             />
           </div>
         </div>
@@ -119,7 +130,7 @@ const BookForm = () => {
             name="featured"
             className="w-4 h-4"
             onChange={handleFeatured}
-            checked={bookInfo.featured}
+            checked={bookInfo?.featured}
           />
 
           <label htmlFor="featured" className="ml-2 text-sm">

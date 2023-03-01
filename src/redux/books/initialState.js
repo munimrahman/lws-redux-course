@@ -1,7 +1,8 @@
 const initialState = {
   books: [],
-  toggleForm: true,
+  toggleForm: "",
   searchText: "",
+  updateBook: {},
 };
 
 export default initialState;

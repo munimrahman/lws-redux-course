@@ -8,12 +8,12 @@ const Home = () => {
   const dispatch = useDispatch();
   const bookList = useSelector((state) => state.books.books);
   const searchText = useSelector((state) => state.books.searchText);
-  const searchBooks = bookList.filter((book) =>
-    book.name.toLocaleLowerCase().includes(searchText.toLocaleLowerCase())
+  const searchBooks = bookList?.filter((book) =>
+    book?.name?.toLocaleLowerCase().includes(searchText?.toLocaleLowerCase())
   );
   const allBooks = searchText ? searchBooks : bookList;
   const [tab, setTab] = useState("all");
-  const featuredBooks = allBooks.filter((book) => book.featured);
+  const featuredBooks = allBooks?.filter((book) => book.featured);
   const books = tab === "all" ? allBooks : featuredBooks;
 
   useEffect(() => {

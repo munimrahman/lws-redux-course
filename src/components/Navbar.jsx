@@ -5,13 +5,11 @@ import { searchBook } from "../redux/books/actions";
 
 const Navbar = () => {
   const dispatch = useDispatch();
-  // const [searchText, setSearchText] = useState("");
   const searchText = useSelector((state) => state.books.searchText);
 
   const handleChange = (e) => {
     const search = e.target.value.toLowerCase();
     dispatch(searchBook(search));
-    // setSearchText(search);
   };
 
   const handleSearch = (e) => {
