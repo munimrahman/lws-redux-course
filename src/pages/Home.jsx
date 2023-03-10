@@ -7,10 +7,11 @@ import { fetchBlogs } from "../features/blogs/blogsSlice";
 const Home = () => {
   const dispatch = useDispatch();
   const { blogs } = useSelector((state) => state.blogs);
+  const { sort, filter } = useSelector((state) => state.filterBlog);
 
   useEffect(() => {
-    dispatch(fetchBlogs());
-  }, [dispatch]);
+    dispatch(fetchBlogs({ sort, filter }));
+  }, [dispatch, sort, filter]);
 
   return (
     <section className="wrapper">
@@ -19,7 +20,7 @@ const Home = () => {
       <main className="post-container" id="lws-postContainer">
         {/* <!-- single post --> */}
         {blogs.map((blog) => (
-          <BlogCard key={blog.id} />
+          <BlogCard key={blog.id} blog={blog} />
         ))}
 
         {/* <!-- Single Post Ends --> */}

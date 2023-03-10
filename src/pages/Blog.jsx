@@ -1,9 +1,26 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import blogImg from "../assets/images/git.webp";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, useParams } from "react-router-dom";
 import RelatedBlogCard from "../components/RelatedBlogCard/RelatedBlogCard";
+import { fetchBlog } from "../features/blog/blogSlice";
+import { fetchRelatedBlogs } from "../features/relatedBlogs/relatedBlogsSlice";
 
 const Blog = () => {
+  const { id } = useParams();
+  const dispatch = useDispatch();
+  const { blog } = useSelector((state) => state.blog);
+  const { relatedBlogs } = useSelector((state) => state.relatedBlogs);
+
+  const { title, image, tags, description, likes, isSaved } = blog;
+
+  useEffect(() => {
+    dispatch(fetchBlog(id));
+  }, [dispatch, id]);
+
+  useEffect(() => {
+    dispatch(fetchRelatedBlogs({ id, tags }));
+  }, [dispatch, id, tags]);
+
   return (
     <>
       <div className="container mt-8">
@@ -19,43 +36,43 @@ const Blog = () => {
         {/* <!-- detailed post  --> */}
         <main className="post">
           <img
-            src={blogImg}
+            src={image}
             alt="githum"
             className="w-full rounded-md"
             id="lws-megaThumb"
           />
           <div>
             <h1 className="mt-6 text-2xl post-title" id="lws-singleTitle">
-              MERN stack for Web Development
+              {title}
             </h1>
             <div className="tags" id="lws-singleTags">
-              <span>#python,</span> <span>#tech,</span> <span>#git</span>
+              {tags?.map((tag, i) =>
+                i < tags.length - 1 ? (
+                  <span key={i}>#{tag}, </span>
+                ) : (
+                  <span key={i}>#{tag}</span>
+                )
+              )}
             </div>
             <div className="btn-group">
               {/* <!-- handle like on button click --> */}
               <button className="like-btn" id="lws-singleLinks">
-                <i className="fa-regular fa-thumbs-up"></i> 100
+                <i className="fa-regular fa-thumbs-up"></i> {likes}
               </button>
               {/* <!-- handle save on button click --> */}
               {/* <!-- use ".active" class and "Saved" text  if a post is saved, other wise "Save" --> */}
-              <button className="active save-btn" id="lws-singleSavedBtn">
+              <button
+                className={`${isSaved && "active"} save-btn`}
+                id="lws-singleSavedBtn"
+              >
                 <i className="fa-regular fa-bookmark"></i> Saved
               </button>
             </div>
             <div className="mt-6">
-              <p>
-                A MERN stack comprises a collection of four frameworks (MongoDB,
-                ExpressJs, ReactJs and NodeJs) used to develop full-stack
-                javascript solutions for rapid, scalable, and secure
-                applications. Each framework serves a different purpose in
-                creating successful web applications. It is an excellent choice
-                for companies looking to develop high-quality responsive
-                applications quickly using just one language.
-              </p>
+              <p>{description}</p>
             </div>
           </div>
         </main>
-        {/* <!-- detailed post ends --> */}
 
         {/* <!-- related posts --> */}
         <aside>
@@ -64,9 +81,11 @@ const Blog = () => {
           </h4>
           <div className="space-y-4 related-post-container">
             {/* <!-- related post  --> */}
-            <RelatedBlogCard />
-            <RelatedBlogCard />
-            <RelatedBlogCard />
+
+            {relatedBlogs?.map((relatedBlog) => (
+              <RelatedBlogCard key={relatedBlog.id} blog={relatedBlog} />
+            ))}
+
             {/* <!-- related post ends --> */}
           </div>
         </aside>

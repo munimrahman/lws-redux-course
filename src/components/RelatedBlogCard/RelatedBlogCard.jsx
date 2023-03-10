@@ -1,24 +1,31 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import blogImg from "../../assets/images/ai.jpg";
 
-const RelatedBlogCard = () => {
+const RelatedBlogCard = ({ blog }) => {
+  const { id, title, image, tags, createdAt } = blog;
+
   return (
     <div className="card">
-      <Link to={"/something"}>
-        <img src={blogImg} className="card-image" alt="" />
+      <Link to={`/${id}`}>
+        <img src={image} className="card-image" alt="" />
       </Link>
       <div className="p-4">
         <Link
           to={"/something"}
           className="text-lg post-title lws-RelatedPostTitle"
         >
-          Top Github Alternatives
+          {title}
         </Link>
         <div className="mb-0 tags">
-          <span>#python,</span> <span>#tech,</span> <span>#git</span>
+          {tags?.map((tag, i) =>
+            i < tags.length - 1 ? (
+              <span key={i}>#{tag}, </span>
+            ) : (
+              <span key={i}>#{tag}</span>
+            )
+          )}
         </div>
-        <p>2010-03-27</p>
+        <p>{createdAt}</p>
       </div>
     </div>
   );
