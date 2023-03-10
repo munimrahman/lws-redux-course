@@ -5,7 +5,6 @@ import RelatedBlogCard from "../components/RelatedBlogCard/RelatedBlogCard";
 import { fetchBlog } from "../features/blog/blogSlice";
 import { likeBlogUpdate } from "../features/likeBlog/likeBlogsSlice";
 import { fetchRelatedBlogs } from "../features/relatedBlogs/relatedBlogsSlice";
-import { likeBlog } from "../features/saveBlog/saveBlogAPI";
 import { saveBlogUpdate } from "../features/saveBlog/saveBlogsSlice";
 
 const Blog = () => {
