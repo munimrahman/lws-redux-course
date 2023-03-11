@@ -1,40 +1,38 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useParams } from "react-router-dom";
 import RelatedBlogCard from "../components/RelatedBlogCard/RelatedBlogCard";
-import { fetchBlog } from "../features/blog/blogSlice";
-import { likeBlogUpdate } from "../features/likeBlog/likeBlogsSlice";
+import {
+  fetchBlog,
+  likeBlogUpdate,
+  saveBlogUpdate,
+} from "../features/blog/blogSlice";
 import { fetchRelatedBlogs } from "../features/relatedBlogs/relatedBlogsSlice";
-import { saveBlogUpdate } from "../features/saveBlog/saveBlogsSlice";
 
 const Blog = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
   const { blog } = useSelector((state) => state.blog);
   const { relatedBlogs } = useSelector((state) => state.relatedBlogs);
-  // const { save } = useSelector((state) => state.saveBlog);
 
   const { title, image, tags, description, likes, isSaved } = blog;
-  const [save, setSave] = useState(isSaved);
-  const [blogLikes, setBlogLikes] = useState(likes);
 
   useEffect(() => {
     dispatch(fetchBlog(id));
-  }, [dispatch, id, save, blogLikes]);
+  }, [dispatch, id]);
 
   useEffect(() => {
     dispatch(fetchRelatedBlogs({ id, tags }));
   }, [dispatch, id, tags]);
 
-  const handleSave = (id, isSaved) => {
-    setSave(!isSaved);
-    dispatch(saveBlogUpdate({ id, isSaved }));
-  };
-
-  const handleLike = (id, likes) => {
-    setBlogLikes(likes + 1);
+  const handleLikes = (id, likes) => {
     dispatch(likeBlogUpdate({ id, likes }));
   };
+
+  const handleSave = (id, isSave) => {
+    dispatch(saveBlogUpdate({ id, isSave }));
+  };
+
   return (
     <>
       <div className="container mt-8">
@@ -71,20 +69,21 @@ const Blog = () => {
             <div className="btn-group">
               {/* <!-- handle like on button click --> */}
               <button
+                onClick={() => handleLikes(id, likes)}
                 className="like-btn"
                 id="lws-singleLinks"
-                onClick={() => handleLike(id, likes)}
               >
                 <i className="fa-regular fa-thumbs-up"></i> {likes}
               </button>
               {/* <!-- handle save on button click --> */}
               {/* <!-- use ".active" class and "Saved" text  if a post is saved, other wise "Save" --> */}
               <button
-                className={`${save && "active"} save-btn`}
-                id="lws-singleSavedBtn"
                 onClick={() => handleSave(id, isSaved)}
+                className={`${isSaved && "active"} save-btn`}
+                id="lws-singleSavedBtn"
               >
-                <i className="fa-regular fa-bookmark"></i> Saved
+                <i className="fa-regular fa-bookmark"></i>{" "}
+                {isSaved ? "Saved" : "Save"}
               </button>
             </div>
             <div className="mt-6">
