@@ -23,6 +23,7 @@ const postSlice = createSlice({
       state.loading = true;
     });
     builder.addCase(fetchPosts.fulfilled, (state, action) => {
+      console.log(action.payload);
       state.loading = false;
       state.posts = action.payload;
     });
@@ -38,9 +39,10 @@ const postSlice = createSlice({
     builder.addCase(fetchRelatedPosts.fulfilled, (state, action) => {
       const relatedPosts = action.payload.sort(
         (a, b) =>
-          parseFloat(a.views.replace("k", "")) -
-          parseFloat(b.views.replace("k", ""))
+          parseFloat(b.views.replace("k", "")) -
+          parseFloat(a.views.replace("k", ""))
       );
+      console.log(relatedPosts);
       state.loading = false;
       state.relatedPosts = relatedPosts;
     });

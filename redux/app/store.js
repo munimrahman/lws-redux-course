@@ -8,7 +8,7 @@ const store = configureStore({
   reducer: {
     post: postReducer,
   },
-  middleware: (getDefaultMiddlewares) => getDefaultMiddlewares().concat(logger),
+  middleware: (getDefaultMiddlewares) => getDefaultMiddlewares(),
 });
 
 module.exports = store;
