@@ -1,8 +1,10 @@
 import React from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import "./App.css";
+import AddNewJob from "./components/AddNewJob/AddNewJob";
+import EditJob from "./components/EditJob/EditJob";
 import JobBoard from "./components/JobBoard/JobBoard";
-import Layout from "./components/Navbar/Layout/Layout";
+import Layout from "./components/Layout/Layout";
 
 function App() {
   const router = createBrowserRouter([
@@ -16,6 +18,11 @@ function App() {
         },
         {
           path: "/add-new-job",
+          element: <AddNewJob />,
+        },
+        {
+          path: "/edit-job/:id",
+          element: <EditJob />,
         },
       ],
     },
