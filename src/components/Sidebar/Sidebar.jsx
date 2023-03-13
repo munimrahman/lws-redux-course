@@ -11,42 +11,46 @@ const Sidebar = () => {
       <nav>
         <ul className="space-y-4">
           <li>
-            <button
+            <Link
+              to={"/"}
               onClick={() => dispatch(filterByType("all"))}
               className="main-menu menu-active"
               id="lws-alljobs-menu"
             >
               <i className="fa-solid fa-briefcase"></i>
               <span> All Available Jobs</span>
-            </button>
+            </Link>
             <ul className="space-y-6 lg:space-y-2 ">
               <li>
-                <button
+                <Link
+                  to={"/"}
                   onClick={() => dispatch(filterByType("intern"))}
                   className="sub-menu"
                   id="lws-internship-menu"
                 >
                   <i className="fa-solid fa-stop !text-[#FF5757]"></i>{" "}
                   Internship
-                </button>
+                </Link>
               </li>
               <li>
-                <button
+                <Link
+                  to={"/"}
                   onClick={() => dispatch(filterByType("full"))}
                   className="sub-menu"
                   id="lws-fulltime-menu"
                 >
                   <i className="fa-solid fa-stop !text-[#FF8A00]"></i> Full Time
-                </button>
+                </Link>
               </li>
               <li>
-                <button
+                <Link
+                  to={"/"}
                   onClick={() => dispatch(filterByType("remote"))}
                   className="sub-menu"
                   id="lws-remote-menu"
                 >
                   <i className="fa-solid fa-stop !text-[#56E5C4]"></i> Remote
-                </button>
+                </Link>
               </li>
             </ul>
           </li>

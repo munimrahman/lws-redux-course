@@ -26,7 +26,7 @@ const JobBoard = () => {
   } else if (typeFilter === "full") {
     title = "All Full Time Jobs";
   } else if (typeFilter === "remote") {
-    title = "All remote Jobs";
+    title = "All Remote Jobs";
   }
 
   return (

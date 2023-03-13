@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { filterByType } from "../../features/filter/filterSlice";
 import { createJob, updateJob } from "../../features/jobs/jobsSlice";
 
 const JobForm = ({ title = "", editData = {} }) => {
@@ -28,6 +29,7 @@ const JobForm = ({ title = "", editData = {} }) => {
       dispatch(createJob(data));
     } else {
       dispatch(updateJob({ id: data.id, data }));
+      dispatch(filterByType("all"));
     }
     navigate("/");
   };
