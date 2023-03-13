@@ -20,7 +20,22 @@ export const fetchJobs = async (typeFilter, salaryFilter) => {
     queryString += "&_sort=salary&_order=desc";
   }
 
-  console.log(`/jobs?${queryString}`);
+  // console.log(`/jobs?${queryString}`);
   const jobs = await axios.get(`/jobs?${queryString}`);
+  return jobs;
+};
+
+export const addJob = async (data) => {
+  const jobs = await axios.post(`/jobs`, data);
+  return jobs;
+};
+
+export const editJob = async (id, data) => {
+  const jobs = await axios.patch(`/jobs/${id}`, data);
+  return jobs;
+};
+
+export const deleteJob = async (id) => {
+  const jobs = await axios.delete(`/jobs/${id}`);
   return jobs;
 };

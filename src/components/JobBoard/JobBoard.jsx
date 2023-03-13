@@ -10,6 +10,10 @@ const JobBoard = () => {
   const { typeFilter, salaryFilter } = useSelector((state) => state.filter);
   const [searchText, setSearchText] = useState("");
 
+  const jobsSearch = jobs?.filter((job) =>
+    job?.title?.toLowerCase().includes(searchText.toLowerCase())
+  );
+
   useEffect(() => {
     dispatch(getJobs({ typeFilter, salaryFilter }));
   }, [dispatch, typeFilter, salaryFilter]);
@@ -47,10 +51,9 @@ const JobBoard = () => {
               autoComplete="sort"
               className="flex-1"
               onChange={(e) => dispatch(filterBySalary(e.target.value))}
+              defaultValue={""}
             >
-              <option selected value={""}>
-                Default
-              </option>
+              <option value={""}>Default</option>
               <option value={"low-high"}>Salary (Low to High)</option>
               <option value={"high-low"}>Salary (High to Low)</option>
             </select>
@@ -59,7 +62,7 @@ const JobBoard = () => {
 
         <div className="jobs-list">
           {/* <!-- Single Job 1--> */}
-          {jobs.map((job) => (
+          {jobsSearch?.map((job) => (
             <SingleJobCard key={job.id} job={job} />
           ))}
 
