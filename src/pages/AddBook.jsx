@@ -4,7 +4,7 @@ import BookForm from "../components/BookForm/BookForm";
 const AddBook = () => {
   return (
     <>
-      <BookForm />
+      <BookForm title={"new"} />
     </>
   );
 };

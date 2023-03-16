@@ -1,36 +1,40 @@
 import React from "react";
+import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
+import { searchText } from "../../features/filter/filterSlice";
 import logo from "../../logo.svg";
 
 const Navbar = () => {
+  const dispatch = useDispatch();
+
   return (
-    <nav class="py-4 2xl:px-6">
-      <div class="container flex items-center justify-between">
+    <nav className="py-4 2xl:px-6">
+      <div className="container flex items-center justify-between">
         <Link to={"/"}>
-          <img src={logo} width="150px" class="object-contain" alt="" />
+          <img src={logo} width="150px" className="object-contain" alt="" />
         </Link>
 
-        <ul class="hidden md:flex items-center space-x-6">
+        <ul className="hidden md:flex items-center space-x-6">
           <Link
             to="/"
-            class="font-semibold cursor-pointer"
+            className="font-semibold cursor-pointer"
             href="index.html"
             id="lws-bookStore"
           >
             <li>Book Store</li>
           </Link>
-          <Link class="cursor-pointer" to={"/add-book"} id="lws-addBook">
+          <Link className="cursor-pointer" to={"/add-book"} id="lws-addBook">
             <li>Add Book</li>
           </Link>
         </ul>
 
-        <form class="flex items-center">
-          <div class="group relative rounded-md bg-white">
+        <form className="flex items-center">
+          <div className="group relative rounded-md bg-white">
             <svg
               width="20"
               height="20"
               fill="currentColor"
-              class="absolute left-3 top-1/2 -mt-2.5 text-slate-400 pointer-events-none group-focus-within:text-primary"
+              className="absolute left-3 top-1/2 -mt-2.5 text-slate-400 pointer-events-none group-focus-within:text-primary"
             >
               <path
                 fill-rule="evenodd"
@@ -41,8 +45,9 @@ const Navbar = () => {
             <input
               type="text"
               placeholder="Filter books..."
-              class="search"
+              className="search"
               id="lws-search"
+              onChange={(e) => dispatch(searchText(e.target.value))}
             />
           </div>
         </form>
