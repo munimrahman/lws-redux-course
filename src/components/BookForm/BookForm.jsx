@@ -1,62 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Manage Bookstore with RTK Query</title>
+import React from "react";
 
-    <link rel="stylesheet" href="./styles/style.css" />
-  </head>
-
-  <body>
-    <nav class="py-4 2xl:px-6">
-      <div class="container flex items-center justify-between">
-        <img src="./images/logo.svg" width="150px" class="object-contain" />
-
-        <ul class="hidden md:flex items-center space-x-6">
-          <a class="cursor-pointer" href="index.html" id="lws-bookStore">
-            <li>Book Store</li>
-          </a>
-          <a
-            class="cursor-pointer font-semibold"
-            href="AddBook.html"
-            id="lws-addBook"
-          >
-            <li>Add Book</li>
-          </a>
-        </ul>
-
-        <form class="flex items-center">
-          <div class="group relative rounded-md bg-white">
-            <svg
-              width="20"
-              height="20"
-              fill="currentColor"
-              class="absolute left-3 top-1/2 -mt-2.5 text-slate-400 pointer-events-none group-focus-within:text-primary"
-            >
-              <path
-                fill-rule="evenodd"
-                clip-rule="evenodd"
-                d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
-              ></path>
-            </svg>
-            <input
-              type="text"
-              placeholder="Filter books..."
-              class="search"
-              id="lws-search"
-            />
-          </div>
-        </form>
-      </div>
-    </nav>
-
+const BookForm = () => {
+  return (
     <main class="py-6 2xl:px-6">
       <div class="container">
-        <div
-          class="p-8 overflow-hidden bg-white shadow-cardShadow rounded-md max-w-xl mx-auto"
-        >
+        <div class="p-8 overflow-hidden bg-white shadow-cardShadow rounded-md max-w-xl mx-auto">
           <h4 class="mb-8 text-xl font-bold text-center">Add New Book</h4>
           <form class="book-form">
             <div class="space-y-2">
@@ -126,7 +74,8 @@
                 class="w-4 h-4"
               />
               <label for="lws-featured" class="ml-2 text-sm">
-                This is a featured book
+                {" "}
+                This is a featured book{" "}
               </label>
             </div>
 
@@ -137,5 +86,7 @@
         </div>
       </div>
     </main>
-  </body>
-</html>
+  );
+};
+
+export default BookForm;
