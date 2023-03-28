@@ -9,6 +9,7 @@ export const taskApi = apiSlice.injectEndpoints({
     getTask: builder.query({
       query: (id) => `/tasks/${id}`,
     }),
+
     addTask: builder.mutation({
       query: (data) => ({
         url: "/tasks",
@@ -17,17 +18,17 @@ export const taskApi = apiSlice.injectEndpoints({
       }),
       async onQueryStarted(arg, { queryFulfilled, dispatch }) {
         const task = await queryFulfilled;
+
         if (task?.data?.id) {
           dispatch(
-            apiSlice.util.updateQueryData("getTasks"),
-            undefined,
-            (draft) => {
+            apiSlice.util.updateQueryData("getTasks", undefined, (draft) => {
               draft.push(task.data);
-            }
+            })
           );
         }
       },
     }),
+
     editTask: builder.mutation({
       query: ({ id, data }) => ({
         url: `/tasks/${id}`,
@@ -35,41 +36,35 @@ export const taskApi = apiSlice.injectEndpoints({
         body: data,
       }),
       async onQueryStarted(arg, { queryFulfilled, dispatch }) {
-        const updatedTask = await queryFulfilled;
-        if (updatedTask?.data?.id) {
+        const task = await queryFulfilled;
+
+        if (task?.data?.id) {
           dispatch(
-            apiSlice.util.updateQueryData("getTasks"),
-            undefined,
-            (draft) => {
-              const updatedTaskIndex = draft.findIndex(
-                (task) => task.id == arg.id
-              );
-              draft.splice(updatedTaskIndex, 1, updatedTask.data);
-            }
+            apiSlice.util.updateQueryData("getTasks", undefined, (draft) => {
+              const index = draft.findIndex((t) => t.id == arg.id);
+              draft[index] = task.data;
+            })
           );
         }
       },
     }),
+
     deleteTask: builder.mutation({
       query: (id) => ({
         url: `/tasks/${id}`,
         method: "DELETE",
       }),
-      async onQueryStarted(arg, { queryFulfilled, dispatch }) {
+      async onQueryStarted(id, { queryFulfilled, dispatch }) {
         let patchResult = dispatch(
-          apiSlice.util.updateQueryData("getsTasks", undefined, (draft) => {
-            const remainTask = draft.filter((t) => t.id != arg);
-            return (draft = remainTask);
+          apiSlice.util.updateQueryData("getTasks", undefined, (draft) => {
+            const deletedTaskIndex = draft.findIndex((t) => t.id == id);
+            draft.splice(deletedTaskIndex, 1);
           })
         );
-        try {
-          const res = await queryFulfilled;
-          if (!res) {
-            patchResult.undo();
-          }
-        } catch (error) {
+
+        await queryFulfilled.catch(() => {
           patchResult.undo();
-        }
+        });
       },
     }),
   }),
@@ -80,4 +75,5 @@ export const {
   useGetTaskQuery,
   useAddTaskMutation,
   useEditTaskMutation,
+  useDeleteTaskMutation,
 } = taskApi;
