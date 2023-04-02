@@ -15,6 +15,9 @@ const Navbar = () => {
           <Link to={"/leaderboard"}>Leaderboard</Link>
 
           <h2 class="font-bold">Saad Hasan</h2>
+          <Link to={"/admin"} class="font-bold">
+            Admin
+          </Link>
           <button
             onClick={() => navigate("/login")}
             class="flex gap-2 border border-cyan items-center px-4 py-1 rounded-full text-sm transition-all hover:bg-cyan "

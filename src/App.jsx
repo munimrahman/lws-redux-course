@@ -8,6 +8,12 @@ import StudentLogin from "./pages/StudentLogin/StudentLogin";
 import StudentRegistration from "./pages/StudentRegistration/StudentRegistration";
 import CoursePlayer from "./pages/CoursePlayer/CoursePlayer";
 import Quiz from "./pages/Quiz/Quiz";
+import Dashboard from "./pages/Dashboard/Dashboard";
+import Videos from "./pages/Videos/Videos";
+import AssignmentMark from "./pages/AssignmentMark/AssignmentMark";
+import Assignment from "./pages/Assignment/Assignment";
+import Quizzes from "./pages/Quizzes/Quizzes";
+import AdminLogin from "./pages/AdminLogin/AdminLogin";
 
 function App() {
   const router = createBrowserRouter([
@@ -18,6 +24,10 @@ function App() {
     {
       path: "/registration",
       element: <StudentRegistration />,
+    },
+    {
+      path: "admin-login",
+      element: <AdminLogin />,
     },
     {
       path: "/",
@@ -46,6 +56,32 @@ function App() {
         {
           path: "/leaderboard",
           element: <LeaderBoard />,
+        },
+      ],
+    },
+    {
+      path: "/admin",
+      element: <Layout />,
+      children: [
+        {
+          path: "/admin",
+          element: <Dashboard />,
+        },
+        {
+          path: "/admin/videos",
+          element: <Videos />,
+        },
+        {
+          path: "/admin/assignments",
+          element: <Assignment />,
+        },
+        {
+          path: "/admin/quizzes",
+          element: <Quizzes />,
+        },
+        {
+          path: "/admin/assignment-marks",
+          element: <AssignmentMark />,
         },
       ],
     },

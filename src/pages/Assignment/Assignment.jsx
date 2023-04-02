@@ -1,57 +1,20 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Videos</title>
+import React from "react";
 
-    <!-- Tailwind css -->
-    <!-- <script src="https://cdn.tailwindcss.com"></script> -->
-    <link rel="stylesheet" href="../style/output.css" />
-  </head>
-
-  <body>
-    <nav class="shadow-md">
-      <div class="max-w-7xl px-5 lg:px-0 mx-auto flex justify-between py-3">
-        <img class="h-10" src="../assets/image/learningportal.svg" />
-        <div class="flex items-center gap-3">
-          <h2 class="font-bold">Admin</h2>
-          <button
-            class="flex gap-2 items-center px-4 py-1 rounded-full text-sm transition-all bg-red-600 hover:bg-red-700 font-medium"
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke-width="1.5"
-              stroke="currentColor"
-              class="w-6 h-6"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15M12 9l-3 3m0 0l3 3m-3-3h12.75"
-              />
-            </svg>
-            Logout
-          </button>
-        </div>
-      </div>
-    </nav>
-
+const Assignment = () => {
+  return (
     <section class="py-6 bg-primary">
       <div class="mx-auto max-w-full px-5 lg:px-20">
         <div class="px-3 py-20 bg-opacity-10">
           <div class="w-full flex">
-            <button class="btn ml-auto">Add Video</button>
+            <button class="btn ml-auto">Add Assignment</button>
           </div>
           <div class="overflow-x-auto mt-4">
             <table class="divide-y-1 text-base divide-gray-600 w-full">
               <thead>
                 <tr>
+                  <th class="table-th">Title</th>
                   <th class="table-th">Video Title</th>
-                  <th class="table-th">Description</th>
+                  <th class="table-th">Mark</th>
                   <th class="table-th">Action</th>
                 </tr>
               </thead>
@@ -59,10 +22,12 @@
               <tbody class="divide-y divide-slate-600/50">
                 <tr>
                   <td class="table-td">
-                    Lesson 4 - Explicit &amp; Union Types - TypeScript Bangla (
-                    বাংলা ) Tutorial Series
+                    Assignment 1 - Scoreboard Application
                   </td>
-                  <td class="table-td">This is the 4th video of this...</td>
+                  <td class="table-td">
+                    JavaScript Bangla Tutorial | JS AJAX | XMLHttp
+                  </td>
+                  <td class="table-td">100</td>
                   <td class="table-td flex gap-x-2">
                     <svg
                       fill="none"
@@ -95,12 +60,12 @@
 
                 <tr>
                   <td class="table-td">
-                    #4 React Prerequisites - React শিখতে কি কি জানা প্রয়োজন -
-                    React Tutorial Bangla Series
+                    Assignment 1 - Scoreboard Application
                   </td>
                   <td class="table-td">
-                    React Prerequisites - React শিখতে কি কি জানা প্রয়োজন...
+                    JavaScript Bangla Tutorial | JS AJAX | XMLHttp
                   </td>
+                  <td class="table-td">100</td>
                   <td class="table-td flex gap-x-2">
                     <svg
                       fill="none"
@@ -133,12 +98,12 @@
 
                 <tr>
                   <td class="table-td">
-                    #67 JavaScript Bangla Tutorial | JavaScript Object
-                    Constructors
+                    Assignment 1 - Scoreboard Application
                   </td>
                   <td class="table-td">
-                    In this Part 67 video of JavaScript Bangla...
+                    JavaScript Bangla Tutorial | JS AJAX | XMLHttp
                   </td>
+                  <td class="table-td">100</td>
                   <td class="table-td flex gap-x-2">
                     <svg
                       fill="none"
@@ -171,12 +136,12 @@
 
                 <tr>
                   <td class="table-td">
-                    #16 Extend Theme - Advanced Concepts | Tailwind CSS Bangla
-                    Tutorial
+                    Assignment 1 - Scoreboard Application
                   </td>
                   <td class="table-td">
-                    In this 16th video of Learn with Sumit Tailwind..
+                    JavaScript Bangla Tutorial | JS AJAX | XMLHttp
                   </td>
+                  <td class="table-td">100</td>
                   <td class="table-td flex gap-x-2">
                     <svg
                       fill="none"
@@ -213,5 +178,7 @@
         </div>
       </div>
     </section>
-  </body>
-</html>
+  );
+};
+
+export default Assignment;
