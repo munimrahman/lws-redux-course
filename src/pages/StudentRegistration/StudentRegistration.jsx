@@ -4,19 +4,19 @@ import logo from "../../assets/image/learningportal.svg";
 
 const StudentRegistration = () => {
   return (
-    <section class="py-6 bg-primary h-screen grid place-items-center">
-      <div class="mx-auto max-w-md px-5 lg:px-0">
+    <section className="py-6 bg-primary h-screen grid place-items-center">
+      <div className="mx-auto max-w-md px-5 lg:px-0">
         <div>
-          <img class="h-12 mx-auto" src={logo} alt="" />
-          <h2 class="mt-6 text-center text-3xl font-extrabold text-slate-100">
+          <img className="h-12 mx-auto" src={logo} alt="" />
+          <h2 className="mt-6 text-center text-3xl font-extrabold text-slate-100">
             Create Your New Account
           </h2>
         </div>
-        <form class="mt-8 space-y-6" action="#" method="POST">
+        <form className="mt-8 space-y-6" action="#" method="POST">
           <input type="hidden" name="remember" value="true" />
-          <div class="rounded-md shadow-sm -space-y-px">
+          <div className="rounded-md shadow-sm -space-y-px">
             <div>
-              <label for="name" class="sr-only">
+              <label htmlFor="name" className="sr-only">
                 Name
               </label>
               <input
@@ -25,12 +25,12 @@ const StudentRegistration = () => {
                 type="name"
                 autocomplete="name"
                 required
-                class="login-input rounded-t-md"
+                className="login-input rounded-t-md"
                 placeholder="Student Name"
               />
             </div>
             <div>
-              <label for="email-address" class="sr-only">
+              <label htmlFor="email-address" className="sr-only">
                 Email address
               </label>
               <input
@@ -39,12 +39,12 @@ const StudentRegistration = () => {
                 type="email"
                 autocomplete="email"
                 required
-                class="login-input"
+                className="login-input"
                 placeholder="Email address"
               />
             </div>
             <div>
-              <label for="password" class="sr-only">
+              <label htmlFor="password" className="sr-only">
                 Password
               </label>
               <input
@@ -53,12 +53,12 @@ const StudentRegistration = () => {
                 type="password"
                 autocomplete="current-password"
                 required
-                class="login-input"
+                className="login-input"
                 placeholder="Password"
               />
             </div>
             <div>
-              <label for="confirm-password" class="sr-only">
+              <label htmlFor="confirm-password" className="sr-only">
                 Confirm Password
               </label>
               <input
@@ -67,7 +67,7 @@ const StudentRegistration = () => {
                 type="password"
                 autocomplete="confirm-password"
                 required
-                class="login-input rounded-b-md"
+                className="login-input rounded-b-md"
                 placeholder="Confirm Password"
               />
             </div>
@@ -76,16 +76,16 @@ const StudentRegistration = () => {
           <div>
             <button
               type="submit"
-              class="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-violet-600 hover:bg-violet-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-violet-500"
+              className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-violet-600 hover:bg-violet-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-violet-500"
             >
               Create Account
             </button>
           </div>
         </form>
-        <div class="text-sm text-center mt-5">
+        <div className="text-sm text-center mt-5">
           <Link
             to={"/login"}
-            class="font-medium text-violet-600 hover:text-violet-500"
+            className="font-medium text-violet-600 hover:text-violet-500"
           >
             Already have an account?{" "}
             <span className="text-white">Sign In Here</span>

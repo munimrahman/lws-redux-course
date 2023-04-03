@@ -14,6 +14,8 @@ import AssignmentMark from "./pages/AssignmentMark/AssignmentMark";
 import Assignment from "./pages/Assignment/Assignment";
 import Quizzes from "./pages/Quizzes/Quizzes";
 import AdminLogin from "./pages/AdminLogin/AdminLogin";
+import CourseLayout from "./components/Layout/CourseLayout";
+import AddVideo from "./pages/AddVideo/AddVideo";
 
 function App() {
   const router = createBrowserRouter([
@@ -46,8 +48,14 @@ function App() {
           element: <StudentRegistration />,
         },
         {
-          path: "/course-player",
-          element: <CoursePlayer />,
+          path: "/course",
+          element: <CourseLayout />,
+          children: [
+            {
+              path: "/course/:id",
+              element: <CoursePlayer />,
+            },
+          ],
         },
         {
           path: "/quiz",
@@ -70,6 +78,10 @@ function App() {
         {
           path: "/admin/videos",
           element: <Videos />,
+        },
+        {
+          path: "/admin/add-video",
+          element: <AddVideo />,
         },
         {
           path: "/admin/assignments",
