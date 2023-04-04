@@ -1,10 +1,15 @@
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import logo from "../../assets/image/learningportal.svg";
+import { useGetVideosQuery } from "../../features/videos/videosApi";
 
 const Navbar = () => {
   const navigate = useNavigate();
-
+  const { data: videos = [] } = useGetVideosQuery();
+  const id = videos[0]?.id;
+  if (id === undefined) {
+    // show error message
+  }
   return (
     <nav className="shadow-md">
       <div className="max-w-7xl px-5 lg:px-0 mx-auto flex justify-between py-3">
@@ -12,6 +17,8 @@ const Navbar = () => {
           <img className="h-10" src={logo} alt="" />
         </Link>
         <div className="flex items-center gap-3">
+          <Link to={`/course/${id}`}>Course</Link>
+
           <Link to={"/leaderboard"}>Leaderboard</Link>
 
           <h2 className="font-bold">Saad Hasan</h2>

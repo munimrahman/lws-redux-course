@@ -1,23 +1,18 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { useDeleteVideoMutation } from "../../features/videos/videosApi";
 
-const VideoRow = ({ video }) => {
-  const { id, title, description } = video || {};
-  const [deleteVideo, { isLoading, iserror, isSuccess }] =
-    useDeleteVideoMutation();
+const AssignmentRow = ({ assignment }) => {
+  const { id, title, video_title, totalMark } = assignment || {};
 
   const handleDelete = (id) => {
-    deleteVideo(id);
-    if (!iserror && isSuccess) {
-      alert("Video deleted successfully");
-    }
+    console.log(id);
   };
 
   return (
     <tr>
-      <td className="table-td">{title?.slice(0, 50)}...</td>
-      <td className="table-td">{description?.slice(0, 50)}...</td>
+      <td className="table-td">{title}</td>
+      <td className="table-td">{video_title}</td>
+      <td className="table-td">{totalMark}</td>
       <td className="table-td flex gap-x-2">
         <button onClick={() => handleDelete(id)}>
           <svg
@@ -34,7 +29,7 @@ const VideoRow = ({ video }) => {
             />
           </svg>
         </button>
-        <Link to={`/admin/edit-video/${id}`}>
+        <Link to={`/admin/edit-assignment/${id}`}>
           <svg
             fill="none"
             viewBox="0 0 24 24"
@@ -54,4 +49,4 @@ const VideoRow = ({ video }) => {
   );
 };
 
-export default VideoRow;
+export default AssignmentRow;

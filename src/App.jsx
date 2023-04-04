@@ -16,6 +16,9 @@ import Quizzes from "./pages/Quizzes/Quizzes";
 import AdminLogin from "./pages/AdminLogin/AdminLogin";
 import CourseLayout from "./components/Layout/CourseLayout";
 import AddVideo from "./pages/AddVideo/AddVideo";
+import EditVideo from "./pages/EditVideo/EditVideo";
+import EditAssignment from "./pages/EditAssignment/EditAssignment";
+import AddAssignment from "./pages/AddAssignment/AddAssignment";
 
 function App() {
   const router = createBrowserRouter([
@@ -84,8 +87,20 @@ function App() {
           element: <AddVideo />,
         },
         {
+          path: "/admin/edit-video/:id",
+          element: <EditVideo />,
+        },
+        {
           path: "/admin/assignments",
           element: <Assignment />,
+        },
+        {
+          path: "/admin/add-assignment",
+          element: <AddAssignment />,
+        },
+        {
+          path: "/admin/edit-assignment/:id",
+          element: <EditAssignment />,
         },
         {
           path: "/admin/quizzes",
