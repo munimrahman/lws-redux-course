@@ -63,7 +63,7 @@ function App() {
           ],
         },
         {
-          path: "/quiz",
+          path: "/quiz/:id",
           element: <Quiz />,
         },
         {

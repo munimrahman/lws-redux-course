@@ -5,7 +5,7 @@ const Player = ({ url, title }) => {
     <iframe
       width="100%"
       className="aspect-video"
-      src={url}
+      src={`${url}?autoplay=1`}
       title={title}
       frameborder="0"
       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"

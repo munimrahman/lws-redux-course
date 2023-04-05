@@ -1,7 +1,46 @@
+/* eslint-disable eqeqeq */
 import React from "react";
 import SingleQuiz from "./SingleQuiz";
+import { useNavigate, useParams } from "react-router-dom";
+import { useGetQuizzesQuery } from "../../features/quiz/quizApi";
+import { useSelector } from "react-redux";
+import { useGetVideoQuery } from "../../features/videos/videosApi";
+import { useAddQuizMarkMutation } from "../../features/marksApi/marksApi";
 
 const Quiz = () => {
+  const { id } = useParams();
+  const { data: quizzes = [] } = useGetQuizzesQuery();
+  const { data: video = {} } = useGetVideoQuery(id);
+  const quiz = quizzes.filter((q) => q.video_id == id);
+  const { quizAns } = useSelector((state) => state.quiz);
+  const [addQuizMark, { isLoading, isError }] = useAddQuizMarkMutation();
+  const navigae = useNavigate();
+
+  const handleSubmit = () => {
+    const totalQuiz = quiz?.length;
+    const totalMark = totalQuiz * 5;
+    const mark = quizAns.reduce((p, c) => c.mark + p, 0);
+    const totalCorrect = totalMark / 5;
+    const totalWrong = quiz?.length - totalCorrect;
+
+    const quizMark = {
+      student_id: 1,
+      student_name: "Munim Rahman",
+      video_id: id,
+      video_title: video.title,
+      totalQuiz,
+      totalCorrect,
+      totalWrong,
+      totalMark,
+      mark,
+    };
+
+    addQuizMark(quizMark);
+    if (!isLoading && !isError) {
+      navigae("/leaderboard");
+    }
+  };
+
   return (
     <section className="py-6 bg-primary">
       <div className="mx-auto max-w-7xl px-5 lg:px-0">
@@ -15,11 +54,15 @@ const Quiz = () => {
           </p>
         </div>
         <div className="space-y-8">
-          <SingleQuiz />
-          <SingleQuiz />
+          {quiz?.map((q, i) => (
+            <SingleQuiz key={q.id} quiz={q} index={i} />
+          ))}
         </div>
 
-        <button className="px-4 py-2 rounded-full bg-cyan block ml-auto mt-8 hover:opacity-90 active:opacity-100 active:scale-95">
+        <button
+          onClick={handleSubmit}
+          className="px-4 py-2 rounded-full bg-cyan block ml-auto mt-8 hover:opacity-90 active:opacity-100 active:scale-95"
+        >
           Submit
         </button>
       </div>

@@ -1,8 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-const Description = ({ video }) => {
-  const { title, description, createdAt } = video || {};
+const Description = ({ video, assignment, quiz }) => {
+  const { id, title, description, createdAt } = video || {};
   const date = new Date(createdAt).getDate();
   const month = new Date(createdAt).toLocaleDateString("en-US", {
     month: "long",
@@ -17,18 +17,21 @@ const Description = ({ video }) => {
       <h2 className=" pb-4 text-sm leading-[1.7142857] text-slate-400">
         Uploaded on {date} {month} {year}
       </h2>
-
       <div className="flex gap-4">
-        <button className="px-3 font-bold py-1 border border-cyan text-cyan rounded-full text-sm hover:bg-cyan hover:text-primary">
-          এসাইনমেন্ট
-        </button>
+        {assignment && (
+          <button className="px-3 font-bold py-1 border border-cyan text-cyan rounded-full text-sm hover:bg-cyan hover:text-primary">
+            এসাইনমেন্ট
+          </button>
+        )}
 
-        <Link
-          to={"/quiz"}
-          className="px-3 font-bold py-1 border border-cyan text-cyan rounded-full text-sm hover:bg-cyan hover:text-primary"
-        >
-          কুইজে অংশগ্রহণ করুন
-        </Link>
+        {quiz?.length > 0 && (
+          <Link
+            to={`/quiz/${id}`}
+            className="px-3 font-bold py-1 border border-cyan text-cyan rounded-full text-sm hover:bg-cyan hover:text-primary"
+          >
+            কুইজে অংশগ্রহণ করুন
+          </Link>
+        )}
       </div>
       <p className="mt-4 text-sm text-slate-400 leading-6">{description}</p>
     </div>

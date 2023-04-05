@@ -1,12 +1,18 @@
+/* eslint-disable eqeqeq */
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
 const SidebarVideo = ({ video }) => {
+  const { id: paramId } = useParams();
   const { id, title, views, duration } = video || {};
+
+  const activeStyle = id == paramId ? "bg-slate-900" : "";
 
   return (
     <Link to={`/course/${id}`}>
-      <div className="w-full flex flex-row gap-2 cursor-pointer hover:bg-slate-900 p-2 py-3">
+      <div
+        className={`w-full flex flex-row gap-2 cursor-pointer ${activeStyle} hover:bg-slate-900 p-2 py-3`}
+      >
         {/* <!-- Thumbnail --> */}
         <svg
           fill="none"

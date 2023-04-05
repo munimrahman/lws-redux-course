@@ -7,6 +7,10 @@ export const marksApi = apiSlice.injectEndpoints({
       query: () => "/assignmentMark",
     }),
 
+    getQuizzesMark: builder.query({
+      query: () => "/quizMark",
+    }),
+
     // getQuiz: builder.query({
     //   query: (id) => `/quizzes/${id}`,
     // }),
@@ -38,8 +42,40 @@ export const marksApi = apiSlice.injectEndpoints({
         }
       },
     }),
+
+    addQuizMark: builder.mutation({
+      query: (data) => ({
+        url: `/quizMark`,
+        method: "POST",
+        body: data,
+      }),
+
+      // async onQueryStarted(data, { queryFulfilled, dispatch }) {
+      //   console.log(data);
+      //   // let patchResult = dispatch(
+      //   //   apiSlice.util.updateQueryData(
+      //   //     "getAssignmentsMark",
+      //   //     undefined,
+      //   //     (draft) => {
+      //   //       const updateIndex = draft.findIndex((v) => v.id == id);
+      //   //       let existingData = draft[updateIndex];
+      //   //       draft[updateIndex] = { ...existingData, ...data };
+      //   //     }
+      //   //   )
+      //   // );
+
+      //   try {
+      //     await queryFulfilled;
+      //   } catch {
+      //     // patchResult.undo();
+      //   }
+      // },
+    }),
   }),
 });
 
-export const { useGetAssignmentsMarkQuery, useAddAssignmentMarkMutation } =
-  marksApi;
+export const {
+  useGetAssignmentsMarkQuery,
+  useAddAssignmentMarkMutation,
+  useAddQuizMarkMutation,
+} = marksApi;

@@ -1,3 +1,4 @@
+/* eslint-disable eqeqeq */
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useGetVideosQuery } from "../../features/videos/videosApi";
