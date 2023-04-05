@@ -19,6 +19,8 @@ import AddVideo from "./pages/AddVideo/AddVideo";
 import EditVideo from "./pages/EditVideo/EditVideo";
 import EditAssignment from "./pages/EditAssignment/EditAssignment";
 import AddAssignment from "./pages/AddAssignment/AddAssignment";
+import EditQuiz from "./pages/EditQuiz/EditQuiz";
+import AddQuiz from "./pages/AddQuiz/AddQuiz";
 
 function App() {
   const router = createBrowserRouter([
@@ -105,6 +107,14 @@ function App() {
         {
           path: "/admin/quizzes",
           element: <Quizzes />,
+        },
+        {
+          path: "/admin/add-quiz",
+          element: <AddQuiz />,
+        },
+        {
+          path: "/admin/edit-quiz/:id",
+          element: <EditQuiz />,
         },
         {
           path: "/admin/assignment-marks",
