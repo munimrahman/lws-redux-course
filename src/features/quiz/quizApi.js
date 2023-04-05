@@ -31,56 +31,53 @@ export const quizApi = apiSlice.injectEndpoints({
       },
     }),
 
-    // editAssignment: builder.mutation({
-    //   query: ({ id, data }) => ({
-    //     url: `/assignments/${id}`,
-    //     method: "PATCH",
-    //     body: data,
-    //   }),
-    //   async onQueryStarted({ id, data }, { queryFulfilled, dispatch }) {
-    //     const res = await queryFulfilled;
-    //     if (res?.data?.id) {
-    //       dispatch(
-    //         apiSlice.util.updateQueryData(
-    //           "getAssignments",
-    //           undefined,
-    //           (draft) => {
-    //             const updateIndex = draft.findIndex((v) => v.id == id);
-    //             draft[updateIndex] = res.data;
-    //           }
-    //         )
-    //       );
-    //     }
-    //   },
-    // }),
+    editQuiz: builder.mutation({
+      query: ({ id, data }) => ({
+        url: `/quizzes/${id}`,
+        method: "PATCH",
+        body: data,
+      }),
+      async onQueryStarted({ id, data }, { queryFulfilled, dispatch }) {
+        const res = await queryFulfilled;
+        if (res?.data?.id) {
+          dispatch(
+            apiSlice.util.updateQueryData("getQuizzes", undefined, (draft) => {
+              const updateIndex = draft.findIndex((v) => v.id == id);
+              draft[updateIndex] = res.data;
+            })
+          );
+        }
+      },
+    }),
 
-    // deleteAssignment: builder.mutation({
-    //   query: (id) => ({
-    //     url: `/assignments/${id}`,
-    //     method: "DELETE",
-    //   }),
+    deleteQuiz: builder.mutation({
+      query: (id) => ({
+        url: `/quizzes/${id}`,
+        method: "DELETE",
+      }),
 
-    //   async onQueryStarted(id, { queryFulfilled, dispatch }) {
-    //     let patchResult = dispatch(
-    //       apiSlice.util.updateQueryData(
-    //         "getAssignments",
-    //         undefined,
-    //         (draft) => {
-    //           const deletedTaskIndex = draft.findIndex((v) => v.id == id);
-    //           draft.splice(deletedTaskIndex, 1);
-    //         }
-    //       )
-    //     );
+      async onQueryStarted(id, { queryFulfilled, dispatch }) {
+        let patchResult = dispatch(
+          apiSlice.util.updateQueryData("getQuizzes", undefined, (draft) => {
+            const deletedTaskIndex = draft.findIndex((v) => v.id == id);
+            draft.splice(deletedTaskIndex, 1);
+          })
+        );
 
-    //     try {
-    //       await queryFulfilled;
-    //     } catch {
-    //       patchResult.undo();
-    //     }
-    //   },
-    // }),
+        try {
+          await queryFulfilled;
+        } catch {
+          patchResult.undo();
+        }
+      },
+    }),
   }),
 });
 
-export const { useGetQuizzesQuery, useGetQuizQuery, useAddQuizMutation } =
-  quizApi;
+export const {
+  useGetQuizzesQuery,
+  useGetQuizQuery,
+  useAddQuizMutation,
+  useEditQuizMutation,
+  useDeleteQuizMutation,
+} = quizApi;

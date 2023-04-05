@@ -1,7 +1,8 @@
+/* eslint-disable eqeqeq */
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import {
-  useAddQuizMutation,
+  useEditQuizMutation,
   useGetQuizQuery,
 } from "../../features/quiz/quizApi";
 import { useGetVideosQuery } from "../../features/videos/videosApi";
@@ -11,7 +12,7 @@ const EditQuiz = () => {
   const { data: videos = [] } = useGetVideosQuery();
   const { data: quiz = {} } = useGetQuizQuery(id);
   const { question, video_id, video_title, options = [] } = quiz || {};
-  const [addQuiz, { isLoading, isError }] = useAddQuizMutation();
+  const [editQuiz, { isLoading, isError }] = useEditQuizMutation();
   const navigate = useNavigate();
 
   // assignment form data
@@ -67,8 +68,7 @@ const EditQuiz = () => {
         },
       ],
     };
-
-    addQuiz({ id, data: quiz });
+    editQuiz({ id, data: quiz });
     if (!isLoading && !isError) {
       navigate("/admin/quizzes");
     }

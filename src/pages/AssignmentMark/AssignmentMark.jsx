@@ -1,19 +1,29 @@
 import React from "react";
+import { useGetAssignmentsMarkQuery } from "../../features/marksApi/marksApi";
+import MarkRow from "./MarkRow";
 
 const AssignmentMark = () => {
+  const { data: assignmentMarks = [] } = useGetAssignmentsMarkQuery();
+  const total = assignmentMarks?.length;
+  const pending = assignmentMarks.filter(
+    (assignment) => assignment.status === "pending"
+  ).length;
+
+  const sent = total - pending;
+
   return (
     <section className="py-6 bg-primary">
       <div className="mx-auto max-w-full px-5 lg:px-20">
         <div className="px-3 py-20 bg-opacity-10">
           <ul className="assignment-status">
             <li>
-              Total <span>4</span>
+              Total <span>{total}</span>
             </li>
             <li>
-              Pending <span>3</span>
+              Pending <span>{pending}</span>
             </li>
             <li>
-              Mark Sent <span>1</span>
+              Mark Sent <span>{sent}</span>
             </li>
           </ul>
           <div className="overflow-x-auto mt-4">
@@ -29,66 +39,9 @@ const AssignmentMark = () => {
               </thead>
 
               <tbody className="divide-y divide-slate-600/50">
-                <tr>
-                  <td className="table-td">
-                    Assignment 1 - Implement Debounce Function
-                  </td>
-                  <td className="table-td">10 Mar 2023 10:58:13 PM</td>
-                  <td className="table-td">Saad Hasan</td>
-                  <td className="table-td">
-                    https://github.com/Learn-with-Sumit/assignment-1
-                  </td>
-                  <td className="table-td input-mark">
-                    <input max="100" value="100" />
-                    <svg
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      strokeWidth="2"
-                      stroke="currentColor"
-                      className="w-6 h-6 text-green-500 cursor-pointer hover:text-green-400"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        d="M4.5 12.75l6 6 9-13.5"
-                      />
-                    </svg>
-                  </td>
-                </tr>
-                <tr>
-                  <td className="table-td">
-                    Assignment 2 - Implement Best Practices
-                  </td>
-                  <td className="table-td">10 Mar 2023 10:58:13 PM</td>
-                  <td className="table-td">Akash Ahmed</td>
-                  <td className="table-td">
-                    https://github.com/Learn-with-Sumit/assignment-1
-                  </td>
-                  <td className="table-td">50</td>
-                </tr>
-                <tr>
-                  <td className="table-td">
-                    Assignment 1 - Scoreboard Application
-                  </td>
-                  <td className="table-td">10 Mar 2023 10:58:13 PM</td>
-                  <td className="table-td">Ferdous</td>
-                  <td className="table-td">
-                    https://github.com/Learn-with-Sumit/assignment-1
-                  </td>
-                  <td className="table-td">100</td>
-                </tr>
-
-                <tr>
-                  <td className="table-td">
-                    Assignment 1 - Scoreboard Application
-                  </td>
-                  <td className="table-td">10 Mar 2023 10:58:13 PM</td>
-                  <td className="table-td">Saad Hasan</td>
-                  <td className="table-td">
-                    https://github.com/Learn-with-Sumit/assignment-1
-                  </td>
-                  <td className="table-td">100</td>
-                </tr>
+                {assignmentMarks?.map((mark) => (
+                  <MarkRow key={mark.id} mark={mark} />
+                ))}
               </tbody>
             </table>
           </div>

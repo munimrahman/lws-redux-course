@@ -1,11 +1,13 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { useDeleteQuizMutation } from "../../features/quiz/quizApi";
 
 const QuizRow = ({ quiz }) => {
   const { id, question, video_title } = quiz || {};
+  const [deleteQuiz, { isLoading, isError }] = useDeleteQuizMutation();
 
   const handleDelete = (id) => {
-    console.log(id);
+    deleteQuiz(id);
   };
 
   return (
