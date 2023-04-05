@@ -9,18 +9,24 @@ import { useGetVideosQuery } from "../../features/videos/videosApi";
 const EditAssignment = () => {
   const { id } = useParams();
   const { data: assignment } = useGetAssignmentQuery(id);
+  const { title, video_id, video_title, totalMark } = assignment || {};
   const [editAssignment, { isLoading, isError }] = useEditAssignmentMutation();
   const navigate = useNavigate();
 
   // assignment form data
   const [editTitle, setEditTitle] = useState("");
-  const [mark, setEditMark] = useState("");
+  const [editMark, setEditMark] = useState("");
+
+  useEffect(() => {
+    setEditTitle(title);
+    setEditMark(totalMark);
+  }, [title, totalMark]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
     const assignment = {
       title: editTitle,
-      totalMark: mark,
+      totalMark: editMark,
     };
     editAssignment({ id, data: assignment });
     if (!isLoading && !isError) {
@@ -31,7 +37,7 @@ const EditAssignment = () => {
   return (
     <main className="relative z-20 max-w-3xl mx-auto rounded-lg xl:max-w-none">
       <h1 className="my-4 text-3xl font-bold text-center text-white">
-        Add New Assignment
+        Edit Assignment
       </h1>
       <div className="justify-center mb-10 space-y-2 md:flex md:space-y-0">
         <form onSubmit={handleSubmit} className="px-5 md:w-4/12">
@@ -44,8 +50,8 @@ const EditAssignment = () => {
               type="text"
               className="mb-2 w-full rounded p-2 text-black focus:outline-none text-[15px]"
               placeholder="Assignment Title"
-              value={title}
-              onChange={(e) => setTitle(e.target.value)}
+              value={editTitle}
+              onChange={(e) => setEditTitle(e.target.value)}
               required
             />
           </div>
@@ -60,16 +66,14 @@ const EditAssignment = () => {
               id=""
               className="mb-2 w-full rounded p-2 text-black focus:outline-none text-[15px]"
               required
-              onChange={(e) => setVideoId(e.target.value)}
+              disabled
             >
-              <option value="" selected hidden disabled>
+              <option value="" selected hidden>
                 Select Video
               </option>
-              {videos?.map((video) => (
-                <option key={video?.id} value={video?.id}>
-                  {video?.title.slice(0, 60)}...
-                </option>
-              ))}
+              <option value={video_id} selected>
+                {video_title}
+              </option>
             </select>
           </div>
 
@@ -82,8 +86,8 @@ const EditAssignment = () => {
               type="text"
               placeholder="100"
               className="mb-2 w-full rounded p-2 text-black focus:outline-none text-[15px]"
-              value={mark}
-              onChange={(e) => setMark(e.target.value)}
+              value={editMark}
+              onChange={(e) => setEditMark(e.target.value)}
               required
             />
           </div>

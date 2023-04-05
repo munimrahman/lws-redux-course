@@ -1,11 +1,17 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { useDeleteAssignmentMutation } from "../../features/assignments/assignmentsApi";
 
 const AssignmentRow = ({ assignment }) => {
   const { id, title, video_title, totalMark } = assignment || {};
+  const [deleteAssignment, { isLoading, isError }] =
+    useDeleteAssignmentMutation();
 
   const handleDelete = (id) => {
-    console.log(id);
+    deleteAssignment(id);
+    if (!isLoading && !isError) {
+      // alert("Assignment deleted");
+    }
   };
 
   return (

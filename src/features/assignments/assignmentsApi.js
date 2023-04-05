@@ -58,27 +58,31 @@ export const assignmentsApi = apiSlice.injectEndpoints({
       },
     }),
 
-    // deleteVideo: builder.mutation({
-    //   query: (id) => ({
-    //     url: `/videos/${id}`,
-    //     method: "DELETE",
-    //   }),
+    deleteAssignment: builder.mutation({
+      query: (id) => ({
+        url: `/assignments/${id}`,
+        method: "DELETE",
+      }),
 
-    //   async onQueryStarted(id, { queryFulfilled, dispatch }) {
-    //     let patchResult = dispatch(
-    //       apiSlice.util.updateQueryData("getVideos", undefined, (draft) => {
-    //         const deletedTaskIndex = draft.findIndex((v) => v.id == id);
-    //         draft.splice(deletedTaskIndex, 1);
-    //       })
-    //     );
+      async onQueryStarted(id, { queryFulfilled, dispatch }) {
+        let patchResult = dispatch(
+          apiSlice.util.updateQueryData(
+            "getAssignments",
+            undefined,
+            (draft) => {
+              const deletedTaskIndex = draft.findIndex((v) => v.id == id);
+              draft.splice(deletedTaskIndex, 1);
+            }
+          )
+        );
 
-    //     try {
-    //       await queryFulfilled;
-    //     } catch {
-    //       patchResult.undo();
-    //     }
-    //   },
-    // }),
+        try {
+          await queryFulfilled;
+        } catch {
+          patchResult.undo();
+        }
+      },
+    }),
   }),
 });
 
@@ -87,4 +91,5 @@ export const {
   useGetAssignmentQuery,
   useAddAssignmentMutation,
   useEditAssignmentMutation,
+  useDeleteAssignmentMutation,
 } = assignmentsApi;
