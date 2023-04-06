@@ -1,6 +1,25 @@
+/* eslint-disable eqeqeq */
 import React from "react";
+import {
+  useGetAssignmentsMarkQuery,
+  useGetQuizzesMarkQuery,
+} from "../../features/marksApi/marksApi";
+import LeaderBoardRow from "./LeaderBoardRow";
+import calculateLeaderBoard from "../../utils/calculateLeaderBoard";
 
 const LeaderBoard = () => {
+  const { data: assignmentMark = [] } = useGetAssignmentsMarkQuery();
+  const { data: quizMark = [] } = useGetQuizzesMarkQuery();
+  const leaderBoard = calculateLeaderBoard(assignmentMark, quizMark);
+  const studentId = 1;
+  const studentResult = leaderBoard.find((s) => s.id == studentId);
+  const {
+    rank,
+    name,
+    quizMark: quiz,
+    assignmentMark: assignment,
+    totalMark,
+  } = studentResult || {};
   return (
     <section className="py-6 bg-primary">
       <div className="mx-auto max-w-7xl px-5 lg:px-0">
@@ -16,14 +35,13 @@ const LeaderBoard = () => {
                 <th className="table-th !text-center">Total</th>
               </tr>
             </thead>
-
             <tbody>
               <tr className="border-2 border-cyan">
-                <td className="table-td text-center font-bold">4</td>
-                <td className="table-td text-center font-bold">Saad Hasan</td>
-                <td className="table-td text-center font-bold">50</td>
-                <td className="table-td text-center font-bold">50</td>
-                <td className="table-td text-center font-bold">100</td>
+                <td className="table-td text-center font-bold">{rank}</td>
+                <td className="table-td text-center font-bold">{name}</td>
+                <td className="table-td text-center font-bold">{quiz}</td>
+                <td className="table-td text-center font-bold">{assignment}</td>
+                <td className="table-td text-center font-bold">{totalMark}</td>
               </tr>
             </tbody>
           </table>
@@ -43,53 +61,12 @@ const LeaderBoard = () => {
             </thead>
 
             <tbody>
-              <tr className="border-b border-slate-600/50">
-                <td className="table-td text-center">4</td>
-                <td className="table-td text-center">Saad Hasan</td>
-                <td className="table-td text-center">50</td>
-                <td className="table-td text-center">50</td>
-                <td className="table-td text-center">100</td>
-              </tr>
-
-              <tr className="border-b border-slate-600/50">
-                <td className="table-td text-center">4</td>
-                <td className="table-td text-center">Saad Hasan</td>
-                <td className="table-td text-center">50</td>
-                <td className="table-td text-center">50</td>
-                <td className="table-td text-center">100</td>
-              </tr>
-
-              <tr className="border-b border-slate-600/50">
-                <td className="table-td text-center">4</td>
-                <td className="table-td text-center">Saad Hasan</td>
-                <td className="table-td text-center">50</td>
-                <td className="table-td text-center">50</td>
-                <td className="table-td text-center">100</td>
-              </tr>
-
-              <tr className="border-b border-slate-600/50">
-                <td className="table-td text-center">4</td>
-                <td className="table-td text-center">Saad Hasan</td>
-                <td className="table-td text-center">50</td>
-                <td className="table-td text-center">50</td>
-                <td className="table-td text-center">100</td>
-              </tr>
-
-              <tr className="border-b border-slate-600/50">
-                <td className="table-td text-center">4</td>
-                <td className="table-td text-center">Saad Hasan</td>
-                <td className="table-td text-center">50</td>
-                <td className="table-td text-center">50</td>
-                <td className="table-td text-center">100</td>
-              </tr>
-
-              <tr className="border-slate-600/50">
-                <td className="table-td text-center">4</td>
-                <td className="table-td text-center">Saad Hasan</td>
-                <td className="table-td text-center">50</td>
-                <td className="table-td text-center">50</td>
-                <td className="table-td text-center">100</td>
-              </tr>
+              {leaderBoard?.map((leaderBoardRow) => (
+                <LeaderBoardRow
+                  key={leaderBoardRow.id}
+                  leaderBoardRow={leaderBoardRow}
+                />
+              ))}
             </tbody>
           </table>
         </div>

@@ -76,6 +76,7 @@ export const marksApi = apiSlice.injectEndpoints({
 
 export const {
   useGetAssignmentsMarkQuery,
+  useGetQuizzesMarkQuery,
   useAddAssignmentMarkMutation,
   useAddQuizMarkMutation,
 } = marksApi;
