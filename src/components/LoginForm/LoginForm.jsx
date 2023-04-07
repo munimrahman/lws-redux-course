@@ -9,9 +9,12 @@ const LoginForm = () => {
   const [password, setPassword] = useState("");
 
   useEffect(() => {
-    console.log(data);
-    if (data?.accessToken && data?.user) {
-      navigate("/course/2");
+    console.log(data?.user?.role);
+    // if (data?.accessToken && data?.user?.role === "student") {
+    //   navigate("/course/2");
+    // }
+    if (data?.accessToken && data?.user?.role === "admin") {
+      navigate("/admin");
     }
   }, [data, navigate]);
 
