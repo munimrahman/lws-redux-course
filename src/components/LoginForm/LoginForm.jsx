@@ -8,12 +8,12 @@ const LoginForm = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  // useEffect(() => {
-  //   console.log(data);
-  //   if (data?.accessToken && data?.user) {
-  //     navigate("/course/2");
-  //   }
-  // }, [data, navigate]);
+  useEffect(() => {
+    console.log(data);
+    if (data?.accessToken && data?.user) {
+      navigate("/course/2");
+    }
+  }, [data, navigate]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -26,7 +26,6 @@ const LoginForm = () => {
 
   return (
     <form onSubmit={handleSubmit} className="mt-8 space-y-6">
-      {/* <input type="hidden" name="remember" value="true" /> */}
       <div className="rounded-md shadow-sm -space-y-px">
         <div>
           <label htmlFor="email-address" className="sr-only">

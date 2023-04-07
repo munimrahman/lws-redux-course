@@ -1,8 +1,42 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import logo from "../../assets/image/learningportal.svg";
+import { useRegisterMutation } from "../../features/auth/authApi";
+import ErrorElement from "../../components/ErrorElement/ErrorElement";
 
 const StudentRegistration = () => {
+  const [register, { data, isLoading, isError, error: responseError }] =
+    useRegisterMutation();
+  const navigate = useNavigate();
+
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [error, setError] = useState("");
+
+  useEffect(() => {
+    console.log(data);
+    if (responseError?.data) {
+      setError(responseError.data);
+    }
+    if (data?.accessToken && data?.user) {
+      navigate("/course/2");
+    }
+  }, [data, navigate, responseError]);
+
+  const handleRegister = (e) => {
+    e.preventDefault();
+    console.log("object");
+    setError("");
+    if (password !== confirmPassword) {
+      setError("Password do not match");
+    } else {
+      const studentInfo = { name, email, password, role: "student" };
+      register(studentInfo);
+    }
+  };
+
   return (
     <section className="py-6 bg-primary h-screen grid place-items-center">
       <div className="mx-auto max-w-md px-5 lg:px-0">
@@ -12,7 +46,7 @@ const StudentRegistration = () => {
             Create Your New Account
           </h2>
         </div>
-        <form className="mt-8 space-y-6" action="#" method="POST">
+        <form onSubmit={handleRegister} className="mt-8 space-y-6">
           <input type="hidden" name="remember" value="true" />
           <div className="rounded-md shadow-sm -space-y-px">
             <div>
@@ -27,6 +61,7 @@ const StudentRegistration = () => {
                 required
                 className="login-input rounded-t-md"
                 placeholder="Student Name"
+                onChange={(e) => setName(e.target.value)}
               />
             </div>
             <div>
@@ -41,6 +76,7 @@ const StudentRegistration = () => {
                 required
                 className="login-input"
                 placeholder="Email address"
+                onChange={(e) => setEmail(e.target.value)}
               />
             </div>
             <div>
@@ -55,6 +91,7 @@ const StudentRegistration = () => {
                 required
                 className="login-input"
                 placeholder="Password"
+                onChange={(e) => setPassword(e.target.value)}
               />
             </div>
             <div>
@@ -69,6 +106,7 @@ const StudentRegistration = () => {
                 required
                 className="login-input rounded-b-md"
                 placeholder="Confirm Password"
+                onChange={(e) => setConfirmPassword(e.target.value)}
               />
             </div>
           </div>
@@ -81,6 +119,7 @@ const StudentRegistration = () => {
               Create Account
             </button>
           </div>
+          {error !== "" && <ErrorElement message={error} />}
         </form>
         <div className="text-sm text-center mt-5">
           <Link

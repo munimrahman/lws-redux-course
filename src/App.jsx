@@ -24,6 +24,7 @@ import AddQuiz from "./pages/AddQuiz/AddQuiz";
 import StudentRoute from "./Routes/StudentRoute/StudentRoute";
 import useAuthCheck from "./hooks/useAuthCheck";
 import PublicRoute from "./Routes/PublicRoute/PublicRoute";
+import AdminRoute from "./Routes/AdminRoute/AdminRoute";
 
 function App() {
   const authCheck = useAuthCheck();
@@ -38,11 +39,19 @@ function App() {
     },
     {
       path: "/registration",
-      element: <StudentRegistration />,
+      element: (
+        <PublicRoute>
+          <StudentRegistration />
+        </PublicRoute>
+      ),
     },
     {
       path: "/admin-login",
-      element: <AdminLogin />,
+      element: (
+        <PublicRoute>
+          <AdminLogin />
+        </PublicRoute>
+      ),
     },
     {
       path: "/",
@@ -52,14 +61,14 @@ function App() {
           path: "/",
           element: <Home />,
         },
-        {
-          path: "/login",
-          element: <StudentLogin />,
-        },
-        {
-          path: "/registration",
-          element: <StudentRegistration />,
-        },
+        // {
+        //   path: "/login",
+        //   element: <StudentLogin />,
+        // },
+        // {
+        //   path: "/registration",
+        //   element: <StudentRegistration />,
+        // },
         {
           path: "/course",
           element: (
@@ -80,11 +89,19 @@ function App() {
         },
         {
           path: "/quiz/:id",
-          element: <Quiz />,
+          element: (
+            <StudentRoute>
+              <Quiz />
+            </StudentRoute>
+          ),
         },
         {
           path: "/leaderboard",
-          element: <LeaderBoard />,
+          element: (
+            <StudentRoute>
+              <LeaderBoard />
+            </StudentRoute>
+          ),
         },
       ],
     },
@@ -94,47 +111,91 @@ function App() {
       children: [
         {
           path: "/admin",
-          element: <Dashboard />,
+          element: (
+            <AdminRoute>
+              <Dashboard />
+            </AdminRoute>
+          ),
         },
         {
           path: "/admin/videos",
-          element: <Videos />,
+          element: (
+            <AdminRoute>
+              <Videos />
+            </AdminRoute>
+          ),
         },
         {
           path: "/admin/add-video",
-          element: <AddVideo />,
+          element: (
+            <AdminRoute>
+              <AddVideo />
+            </AdminRoute>
+          ),
         },
         {
           path: "/admin/edit-video/:id",
-          element: <EditVideo />,
+          element: (
+            <AdminRoute>
+              <EditVideo />
+            </AdminRoute>
+          ),
         },
         {
           path: "/admin/assignments",
-          element: <Assignment />,
+          element: (
+            <AdminRoute>
+              <Assignment />
+            </AdminRoute>
+          ),
         },
         {
           path: "/admin/add-assignment",
-          element: <AddAssignment />,
+          element: (
+            <AdminRoute>
+              <AddAssignment />
+            </AdminRoute>
+          ),
         },
         {
           path: "/admin/edit-assignment/:id",
-          element: <EditAssignment />,
+          element: (
+            <AdminRoute>
+              <EditAssignment />
+            </AdminRoute>
+          ),
         },
         {
           path: "/admin/quizzes",
-          element: <Quizzes />,
+          element: (
+            <AdminRoute>
+              <Quizzes />
+            </AdminRoute>
+          ),
         },
         {
           path: "/admin/add-quiz",
-          element: <AddQuiz />,
+          element: (
+            <AdminRoute>
+              <AddQuiz />
+            </AdminRoute>
+          ),
         },
         {
           path: "/admin/edit-quiz/:id",
-          element: <EditQuiz />,
+          element: (
+            <AdminRoute>
+              <EditQuiz />
+            </AdminRoute>
+          ),
         },
         {
           path: "/admin/assignment-marks",
-          element: <AssignmentMark />,
+          element: (
+            <AdminRoute>
+              <AssignmentMark />
+            </AdminRoute>
+          ),
         },
       ],
     },
