@@ -5,7 +5,9 @@ import { givenQuizAns } from "../../features/quiz/quizSlice";
 
 const SingleQuiz = ({ quiz, index }) => {
   const { id, question, options } = quiz || {};
+
   const correctAnswer = options[0]?.option;
+
   let ansOptions = shuffleArray([
     options[0].option,
     options[1].option,

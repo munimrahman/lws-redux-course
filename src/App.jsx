@@ -21,19 +21,27 @@ import EditAssignment from "./pages/EditAssignment/EditAssignment";
 import AddAssignment from "./pages/AddAssignment/AddAssignment";
 import EditQuiz from "./pages/EditQuiz/EditQuiz";
 import AddQuiz from "./pages/AddQuiz/AddQuiz";
+import StudentRoute from "./Routes/StudentRoute/StudentRoute";
+import useAuthCheck from "./hooks/useAuthCheck";
+import PublicRoute from "./Routes/PublicRoute/PublicRoute";
 
 function App() {
+  const authCheck = useAuthCheck();
   const router = createBrowserRouter([
     {
       path: "/login",
-      element: <StudentLogin />,
+      element: (
+        <PublicRoute>
+          <StudentLogin />
+        </PublicRoute>
+      ),
     },
     {
       path: "/registration",
       element: <StudentRegistration />,
     },
     {
-      path: "admin-login",
+      path: "/admin-login",
       element: <AdminLogin />,
     },
     {
@@ -54,11 +62,19 @@ function App() {
         },
         {
           path: "/course",
-          element: <CourseLayout />,
+          element: (
+            <StudentRoute>
+              <CourseLayout />
+            </StudentRoute>
+          ),
           children: [
             {
               path: "/course/:id",
-              element: <CoursePlayer />,
+              element: (
+                <StudentRoute>
+                  <CoursePlayer />
+                </StudentRoute>
+              ),
             },
           ],
         },
@@ -124,7 +140,7 @@ function App() {
     },
   ]);
 
-  return <RouterProvider router={router} />;
+  return authCheck && <RouterProvider router={router} />;
 }
 
 export default App;

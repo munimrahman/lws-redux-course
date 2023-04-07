@@ -10,7 +10,9 @@ import calculateLeaderBoard from "../../utils/calculateLeaderBoard";
 const LeaderBoard = () => {
   const { data: assignmentMark = [] } = useGetAssignmentsMarkQuery();
   const { data: quizMark = [] } = useGetQuizzesMarkQuery();
+
   const leaderBoard = calculateLeaderBoard(assignmentMark, quizMark);
+
   const studentId = 1;
   const studentResult = leaderBoard.find((s) => s.id == studentId);
   const {

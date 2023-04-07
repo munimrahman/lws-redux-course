@@ -9,12 +9,16 @@ import { useAddQuizMarkMutation } from "../../features/marksApi/marksApi";
 
 const Quiz = () => {
   const { id } = useParams();
+
   const { data: quizzes = [] } = useGetQuizzesQuery();
   const { data: video = {} } = useGetVideoQuery(id);
+
   const quiz = quizzes.filter((q) => q.video_id == id);
+
   const { quizAns } = useSelector((state) => state.quiz);
+
   const [addQuizMark, { isLoading, isError }] = useAddQuizMarkMutation();
-  const navigae = useNavigate();
+  const navigate = useNavigate();
 
   const handleSubmit = () => {
     const totalQuiz = quiz?.length;
@@ -37,7 +41,7 @@ const Quiz = () => {
 
     addQuizMark(quizMark);
     if (!isLoading && !isError) {
-      navigae("/leaderboard");
+      navigate("/leaderboard");
     }
   };
 
@@ -53,6 +57,7 @@ const Quiz = () => {
             Each question contains 5 Mark
           </p>
         </div>
+
         <div className="space-y-8">
           {quiz?.map((q, i) => (
             <SingleQuiz key={q.id} quiz={q} index={i} />

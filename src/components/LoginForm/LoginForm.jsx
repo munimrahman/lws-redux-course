@@ -1,10 +1,32 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { useLogInMutation } from "../../features/auth/authApi";
 
 const LoginForm = () => {
+  const [logIn, { data, isLoading, isError }] = useLogInMutation();
+  const navigate = useNavigate();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  // useEffect(() => {
+  //   console.log(data);
+  //   if (data?.accessToken && data?.user) {
+  //     navigate("/course/2");
+  //   }
+  // }, [data, navigate]);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const loginCredentials = {
+      email,
+      password,
+    };
+    logIn(loginCredentials);
+  };
+
   return (
-    <form className="mt-8 space-y-6" action="#" method="POST">
-      <input type="hidden" name="remember" value="true" />
+    <form onSubmit={handleSubmit} className="mt-8 space-y-6">
+      {/* <input type="hidden" name="remember" value="true" /> */}
       <div className="rounded-md shadow-sm -space-y-px">
         <div>
           <label htmlFor="email-address" className="sr-only">
@@ -18,6 +40,7 @@ const LoginForm = () => {
             required
             className="login-input rounded-t-md"
             placeholder="Email address"
+            onChange={(e) => setEmail(e.target.value)}
           />
         </div>
         <div>
@@ -32,6 +55,7 @@ const LoginForm = () => {
             required
             className="login-input rounded-b-md"
             placeholder="Password"
+            onChange={(e) => setPassword(e.target.value)}
           />
         </div>
       </div>
