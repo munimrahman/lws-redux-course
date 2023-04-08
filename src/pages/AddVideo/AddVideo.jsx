@@ -4,10 +4,12 @@ import extractDuration from "../../utils/extractDuration";
 import { useAddVideoMutation } from "../../features/videos/videosApi";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import useTitle from "../../hooks/useTitle";
 
 const AddVideo = () => {
   const [addVideo, { isLoading, isError, isSuccess }] = useAddVideoMutation();
   const navigate = useNavigate();
+  useTitle("Add Video");
   // video details
   const [url, setUrl] = useState("");
   const [title, setTitle] = useState("");

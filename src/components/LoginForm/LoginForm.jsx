@@ -2,14 +2,14 @@ import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useLogInMutation } from "../../features/auth/authApi";
 
-const LoginForm = () => {
+const LoginForm = ({ title }) => {
   const [logIn, { data, isLoading, isError }] = useLogInMutation();
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
+  const logInPath = title === "admin" ? "/" : "admin-login";
   useEffect(() => {
-    console.log(data?.user?.role);
+    // console.log(data?.user?.role);
     // if (data?.accessToken && data?.user?.role === "student") {
     //   navigate("/course/2");
     // }
@@ -62,7 +62,15 @@ const LoginForm = () => {
         </div>
       </div>
 
-      <div className="flex items-center justify-end">
+      <div className="flex items-center justify-between">
+        <div className="text-sm">
+          <Link
+            to={logInPath}
+            className="font-medium text-violet-600 hover:text-violet-500"
+          >
+            {title === "student" ? "Admin Login Here" : "Student Login Here"}
+          </Link>
+        </div>
         <div className="text-sm">
           <Link
             to={"/"}

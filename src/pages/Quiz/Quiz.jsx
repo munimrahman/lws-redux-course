@@ -7,6 +7,7 @@ import { useSelector } from "react-redux";
 import { useGetVideoQuery } from "../../features/videos/videosApi";
 import { useAddQuizMarkMutation } from "../../features/marksApi/marksApi";
 import { selectUser } from "../../features/auth/authSelectors";
+import useTitle from "../../hooks/useTitle";
 
 const Quiz = () => {
   const { id } = useParams();
@@ -20,7 +21,7 @@ const Quiz = () => {
 
   const [addQuizMark, { isLoading, isError }] = useAddQuizMarkMutation();
   const navigate = useNavigate();
-
+  useTitle("Submit Quiz");
   const user = useSelector(selectUser);
 
   const handleSubmit = () => {

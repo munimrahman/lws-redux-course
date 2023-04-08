@@ -1,6 +1,7 @@
 import React from "react";
 import { useGetAssignmentsMarkQuery } from "../../features/marksApi/marksApi";
 import MarkRow from "./MarkRow";
+import useTitle from "../../hooks/useTitle";
 
 const AssignmentMark = () => {
   const { data: assignmentMarks = [] } = useGetAssignmentsMarkQuery();
@@ -8,7 +9,7 @@ const AssignmentMark = () => {
   const pending = assignmentMarks.filter(
     (assignment) => assignment.status === "pending"
   ).length;
-
+  useTitle("Assignment Marks");
   const sent = total - pending;
 
   return (

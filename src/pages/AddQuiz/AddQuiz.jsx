@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useGetVideosQuery } from "../../features/videos/videosApi";
 import { useAddQuizMutation } from "../../features/quiz/quizApi";
+import useTitle from "../../hooks/useTitle";
 
 const AddQuiz = () => {
   const { data: videos = [] } = useGetVideosQuery();
@@ -17,7 +18,7 @@ const AddQuiz = () => {
   const [wrongOptionThree, setWrongOptionThree] = useState("");
   const [videoId, setVideoId] = useState("");
   const [videoTitle, setVideoTitle] = useState("");
-
+  useTitle("Add Quiz");
   useEffect(() => {
     const video = videos?.find((video) => video.id == videoId);
     setVideoTitle(video?.title);

@@ -2,10 +2,11 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { useGetQuizzesQuery } from "../../features/quiz/quizApi";
 import QuizRow from "./QuizRow";
+import useTitle from "../../hooks/useTitle";
 
 const Quizzes = () => {
   const { data: quizzes = [] } = useGetQuizzesQuery();
-
+  useTitle("Quiz List");
   return (
     <section className="py-6 bg-primary">
       <div className="mx-auto max-w-full px-5 lg:px-20">

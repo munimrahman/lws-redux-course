@@ -2,10 +2,11 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { useGetAssignmentsQuery } from "../../features/assignments/assignmentsApi";
 import AssignmentRow from "./AssignmentRow";
+import useTitle from "../../hooks/useTitle";
 
 const Assignment = () => {
   const { data: assignments = [] } = useGetAssignmentsQuery();
-
+  useTitle("Assignments List");
   return (
     <section className="py-6 bg-primary">
       <div className="mx-auto max-w-full px-5 lg:px-20">

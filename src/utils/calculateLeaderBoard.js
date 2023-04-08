@@ -58,7 +58,7 @@ const final = (sortedLeaderBoard) => {
       rank++;
       prevMark = sortedLeaderBoard[i].totalMark;
     }
-    if (rank === 4) break;
+    if (rank === 21) break;
     const markObject = {
       id: sortedLeaderBoard[i].id,
       name: sortedLeaderBoard[i].name,

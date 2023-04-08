@@ -1,7 +1,9 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import useTitle from "../../hooks/useTitle";
 
 const Dashboard = () => {
+  useTitle("LWS Dashboard");
   return (
     <section className="py-6 bg-primary">
       <div className="mx-auto max-w-7xl px-5 lg:px-0">

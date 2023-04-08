@@ -6,6 +6,7 @@ import {
   useGetQuizQuery,
 } from "../../features/quiz/quizApi";
 import { useGetVideosQuery } from "../../features/videos/videosApi";
+import useTitle from "../../hooks/useTitle";
 
 const EditQuiz = () => {
   const { id } = useParams();
@@ -14,7 +15,7 @@ const EditQuiz = () => {
   const { question, video_id, video_title, options = [] } = quiz || {};
   const [editQuiz, { isLoading, isError }] = useEditQuizMutation();
   const navigate = useNavigate();
-
+  useTitle("Edit Quiz");
   // assignment form data
   const [editQuestion, setEditQuestion] = useState("");
   const [editCorrectOption, setEditCorrectOption] = useState("");

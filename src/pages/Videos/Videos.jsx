@@ -2,10 +2,11 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { useGetVideosQuery } from "../../features/videos/videosApi";
 import VideoRow from "./VideoRow";
+import useTitle from "../../hooks/useTitle";
 
 const Videos = () => {
   const { data: videos } = useGetVideosQuery();
-
+  useTitle("Videos List");
   return (
     <section className="py-6 bg-primary">
       <div className="mx-auto max-w-full px-5 lg:px-20">

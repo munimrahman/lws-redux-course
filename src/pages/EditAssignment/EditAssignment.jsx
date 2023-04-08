@@ -5,6 +5,7 @@ import {
   useGetAssignmentQuery,
 } from "../../features/assignments/assignmentsApi";
 import { useGetVideosQuery } from "../../features/videos/videosApi";
+import useTitle from "../../hooks/useTitle";
 
 const EditAssignment = () => {
   const { id } = useParams();
@@ -12,7 +13,7 @@ const EditAssignment = () => {
   const { title, video_id, video_title, totalMark } = assignment || {};
   const [editAssignment, { isLoading, isError }] = useEditAssignmentMutation();
   const navigate = useNavigate();
-
+  useTitle("Edit Assignment");
   // assignment form data
   const [editTitle, setEditTitle] = useState("");
   const [editMark, setEditMark] = useState("");

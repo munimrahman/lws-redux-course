@@ -4,6 +4,7 @@ import {
   useEditVideoMutation,
   useGetVideoQuery,
 } from "../../features/videos/videosApi";
+import useTitle from "../../hooks/useTitle";
 
 const EditVideo = () => {
   const { id } = useParams();
@@ -18,7 +19,7 @@ const EditVideo = () => {
   const [editViews, setEditViews] = useState(views);
   const [editDuration, setEditDuration] = useState(duration);
   const [editDescription, setEditDescription] = useState(description);
-
+  useTitle("Edit Video");
   useEffect(() => {
     setEditUrl(url);
     setEditTitle(title);

@@ -3,12 +3,13 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAddAssignmentMutation } from "../../features/assignments/assignmentsApi";
 import { useGetVideosQuery } from "../../features/videos/videosApi";
+import useTitle from "../../hooks/useTitle";
 
 const AddAssignment = () => {
   const { data: videos = [] } = useGetVideosQuery();
   const [addAssignment, { isLoading, isError }] = useAddAssignmentMutation();
   const navigate = useNavigate();
-
+  useTitle("Add Assignment");
   // assignment form data
   const [title, setTitle] = useState("");
   const [mark, setMark] = useState("");

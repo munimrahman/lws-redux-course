@@ -6,11 +6,12 @@ import {
 } from "../../features/marksApi/marksApi";
 import LeaderBoardRow from "./LeaderBoardRow";
 import calculateLeaderBoard from "../../utils/calculateLeaderBoard";
+import useTitle from "../../hooks/useTitle";
 
 const LeaderBoard = () => {
   const { data: assignmentMark = [] } = useGetAssignmentsMarkQuery();
   const { data: quizMark = [] } = useGetQuizzesMarkQuery();
-
+  useTitle("Student Leaderboard");
   const leaderBoard = calculateLeaderBoard(assignmentMark, quizMark);
 
   const studentId = 1;
