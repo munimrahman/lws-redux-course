@@ -8,8 +8,8 @@ const StudentRoute = ({ children }) => {
   const auth = useSelector((state) => state.auth);
   const isStudent = auth?.user?.role === "student" ? true : false;
 
-  console.log(isLoggedIn, isStudent);
-  return isLoggedIn && isStudent ? children : <Navigate to={"/login"} />;
+  // console.log(isLoggedIn, isStudent);
+  return isLoggedIn && isStudent ? children : <Navigate to={"/"} />;
 };
 
 export default StudentRoute;

@@ -11,6 +11,28 @@ export const assignmentsApi = apiSlice.injectEndpoints({
       query: (id) => `/assignments/${id}`,
     }),
 
+    submitAssignment: builder.mutation({
+      query: (data) => ({
+        url: `/assignmentMark/`,
+        method: "POST",
+        body: data,
+      }),
+      async onQueryStarted(arg, { queryFulfilled, dispatch }) {
+        const res = await queryFulfilled;
+        if (res?.data?.id) {
+          dispatch(
+            apiSlice.util.updateQueryData(
+              "getAssignmentsMark",
+              undefined,
+              (draft) => {
+                draft.push(res.data);
+              }
+            )
+          );
+        }
+      },
+    }),
+
     addAssignment: builder.mutation({
       query: (data) => ({
         url: "/assignments",
@@ -92,4 +114,5 @@ export const {
   useAddAssignmentMutation,
   useEditAssignmentMutation,
   useDeleteAssignmentMutation,
+  useSubmitAssignmentMutation,
 } = assignmentsApi;

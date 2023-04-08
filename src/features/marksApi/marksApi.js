@@ -50,26 +50,20 @@ export const marksApi = apiSlice.injectEndpoints({
         body: data,
       }),
 
-      // async onQueryStarted(data, { queryFulfilled, dispatch }) {
-      //   console.log(data);
-      //   // let patchResult = dispatch(
-      //   //   apiSlice.util.updateQueryData(
-      //   //     "getAssignmentsMark",
-      //   //     undefined,
-      //   //     (draft) => {
-      //   //       const updateIndex = draft.findIndex((v) => v.id == id);
-      //   //       let existingData = draft[updateIndex];
-      //   //       draft[updateIndex] = { ...existingData, ...data };
-      //   //     }
-      //   //   )
-      //   // );
-
-      //   try {
-      //     await queryFulfilled;
-      //   } catch {
-      //     // patchResult.undo();
-      //   }
-      // },
+      async onQueryStarted(data, { queryFulfilled, dispatch }) {
+        const res = await queryFulfilled;
+        if (res?.data?.id) {
+          dispatch(
+            apiSlice.util.updateQueryData(
+              "getQuizzesMark",
+              undefined,
+              (draft) => {
+                draft.push(data);
+              }
+            )
+          );
+        }
+      },
     }),
   }),
 });

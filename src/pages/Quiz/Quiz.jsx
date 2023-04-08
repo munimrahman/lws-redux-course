@@ -6,6 +6,7 @@ import { useGetQuizzesQuery } from "../../features/quiz/quizApi";
 import { useSelector } from "react-redux";
 import { useGetVideoQuery } from "../../features/videos/videosApi";
 import { useAddQuizMarkMutation } from "../../features/marksApi/marksApi";
+import { selectUser } from "../../features/auth/authSelectors";
 
 const Quiz = () => {
   const { id } = useParams();
@@ -20,6 +21,8 @@ const Quiz = () => {
   const [addQuizMark, { isLoading, isError }] = useAddQuizMarkMutation();
   const navigate = useNavigate();
 
+  const user = useSelector(selectUser);
+
   const handleSubmit = () => {
     const totalQuiz = quiz?.length;
     const totalMark = totalQuiz * 5;
@@ -28,8 +31,8 @@ const Quiz = () => {
     const totalWrong = quiz?.length - totalCorrect;
 
     const quizMark = {
-      student_id: 1,
-      student_name: "Munim Rahman",
+      student_id: user?.id,
+      student_name: user?.name,
       video_id: id,
       video_title: video.title,
       totalQuiz,

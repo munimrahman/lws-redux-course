@@ -123,7 +123,7 @@ const StudentRegistration = () => {
         </form>
         <div className="text-sm text-center mt-5">
           <Link
-            to={"/login"}
+            to={"/"}
             className="font-medium text-violet-600 hover:text-violet-500"
           >
             Already have an account?{" "}

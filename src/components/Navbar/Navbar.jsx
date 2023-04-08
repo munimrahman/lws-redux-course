@@ -2,31 +2,44 @@ import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import logo from "../../assets/image/learningportal.svg";
 import { useGetVideosQuery } from "../../features/videos/videosApi";
+import { useDispatch, useSelector } from "react-redux";
+import { selectUser } from "../../features/auth/authSelectors";
+import { userLoggedOut } from "../../features/auth/authSlice";
 
 const Navbar = () => {
-  const navigate = useNavigate();
   const { data: videos = [] } = useGetVideosQuery();
   const id = videos[0]?.id;
-  if (id === undefined) {
-    // show error message
-  }
+  const user = useSelector(selectUser);
+  const dispatch = useDispatch();
+
+  const logout = () => {
+    dispatch(userLoggedOut());
+    localStorage.clear();
+  };
+
   return (
     <nav className="shadow-md">
       <div className="max-w-7xl px-5 lg:px-0 mx-auto flex justify-between py-3">
-        <Link to={"/course/id"}>
+        <Link to={"/"}>
           <img className="h-10" src={logo} alt="" />
         </Link>
         <div className="flex items-center gap-3">
-          <Link to={`/course/${id}`}>Course</Link>
+          {user?.role === "student" && (
+            <>
+              <Link to={`/course/${id}`}>Course</Link>
 
-          <Link to={"/leaderboard"}>Leaderboard</Link>
+              <Link to={"/leaderboard"}>Leaderboard</Link>
+            </>
+          )}
 
-          <h2 className="font-bold">Saad Hasan</h2>
-          <Link to={"/admin"} className="font-bold">
-            Admin
-          </Link>
+          <h2 className="font-bold">{user?.name}</h2>
+          {user?.role === "admin" && (
+            <Link to={"/admin"} className="font-bold">
+              Admin Dashboard
+            </Link>
+          )}
           <button
-            onClick={() => navigate("/login")}
+            onClick={logout}
             className="flex gap-2 border border-cyan items-center px-4 py-1 rounded-full text-sm transition-all hover:bg-cyan "
           >
             <svg

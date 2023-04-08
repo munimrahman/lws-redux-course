@@ -30,7 +30,7 @@ function App() {
   const authCheck = useAuthCheck();
   const router = createBrowserRouter([
     {
-      path: "/login",
+      path: "/",
       element: (
         <PublicRoute>
           <StudentLogin />
