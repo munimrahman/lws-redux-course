@@ -2,7 +2,6 @@ import React from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import "./App.css";
 import Layout from "./components/Layout/Layout";
-import Home from "./pages/Home";
 import LeaderBoard from "./pages/LeaderBoard/LeaderBoard";
 import StudentLogin from "./pages/StudentLogin/StudentLogin";
 import StudentRegistration from "./pages/StudentRegistration/StudentRegistration";
@@ -57,18 +56,6 @@ function App() {
       path: "/",
       element: <Layout />,
       children: [
-        {
-          path: "/",
-          element: <Home />,
-        },
-        // {
-        //   path: "/login",
-        //   element: <StudentLogin />,
-        // },
-        // {
-        //   path: "/registration",
-        //   element: <StudentRegistration />,
-        // },
         {
           path: "/course",
           element: (

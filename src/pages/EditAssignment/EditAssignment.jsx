@@ -4,7 +4,6 @@ import {
   useEditAssignmentMutation,
   useGetAssignmentQuery,
 } from "../../features/assignments/assignmentsApi";
-import { useGetVideosQuery } from "../../features/videos/videosApi";
 import useTitle from "../../hooks/useTitle";
 
 const EditAssignment = () => {
